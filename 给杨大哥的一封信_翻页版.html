@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>给杨大哥的一封信 · from ali+小葡萄</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* ========== Slider Container ========== */
+        .slider-wrapper {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+            will-change: transform;
+        }
+
+        .slider-track.dragging {
+            transition: none;
+        }
+
+        /* ========== Page Base ========== */
+        .page {
+            min-width: 100%;
+            width: 100%;
+            height: 100vh;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .page-inner {
+            width: 100%;
+            max-width: 680px;
+            padding: 36px 24px;
+            margin: 0 auto;
+        }
+
+        /* ========== Backgrounds ========== */
+        .page-cover {
+            background: linear-gradient(160deg, #1a1a1a 0%, #2d2d2d 40%, #3d5a3f 100%);
+        }
+        .page-dark {
+            background: linear-gradient(160deg, #2a2a2a 0%, #333333 100%);
+        }
+        .page-mid {
+            background: linear-gradient(160deg, #303030 0%, #3a3a3a 100%);
+        }
+        .page-green {
+            background: linear-gradient(160deg, #2d3d2e 0%, #3d5a3f 100%);
+        }
+        .page-warm {
+            background: linear-gradient(160deg, #2d2d2d 0%, #383028 100%);
+        }
+        .page-end {
+            background: linear-gradient(160deg, #1a1a1a 0%, #2d2d2d 50%, #3d5a3f 100%);
+        }
+
+        /* ========== Typography ========== */
+        .text-primary { color: #e8e8e8; }
+        .text-secondary { color: #b0b0b0; }
+        .text-accent { color: #7fa882; }
+        .text-warm { color: #c9a96e; }
+        .text-muted { color: #888; }
+
+        /* ========== Page Indicator ========== */
+        .page-indicator {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+            padding: 8px 16px;
+            background: rgba(0,0,0,0.35);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.25);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: #7fa882;
+            width: 24px;
+            border-radius: 4px;
+            box-shadow: 0 0 8px rgba(127,168,130,0.4);
+        }
+
+        /* ========== Swipe Hint ========== */
+        .swipe-hint {
+            position: fixed;
+            bottom: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.3);
+            font-size: 13px;
+            letter-spacing: 1px;
+            z-index: 100;
+            animation: fadeHint 3s ease-in-out infinite;
+        }
+
+        @keyframes fadeHint {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        /* ========== Click Zones ========== */
+        .click-zone-left, .click-zone-right {
+            position: fixed;
+            top: 0;
+            width: 18%;
+            height: 100%;
+            z-index: 50;
+            cursor: pointer;
+        }
+        .click-zone-left { left: 0; }
+        .click-zone-right { right: 0; }
+
+        /* ========== Cover Page ========== */
+        .cover-content {
+            text-align: center;
+        }
+        .cover-icon {
+            font-size: 3.5em;
+            margin-bottom: 24px;
+            animation: moonFloat 4s ease-in-out infinite;
+        }
+        @keyframes moonFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .cover-title {
+            font-size: 1.8em;
+            font-weight: 300;
+            color: #e8e8e8;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        .cover-from {
+            font-size: 0.9em;
+            color: #7fa882;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            font-weight: 300;
+        }
+        .cover-subtitle {
+            font-size: 1em;
+            color: rgba(255,255,255,0.45);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        .cover-credit {
+            margin-top: 40px;
+            font-size: 0.72em;
+            color: rgba(255,255,255,0.2);
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+        .cover-line {
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #7fa882, transparent);
+            margin: 20px auto;
+        }
+
+        /* ========== Letter Opening ========== */
+        .letter-box {
+            background: rgba(255,255,255,0.04);
+            border-left: 3px solid #7fa882;
+            border-radius: 0 12px 12px 0;
+            padding: 22px 20px;
+            margin-bottom: 10px;
+        }
+        .letter-box p {
+            color: #d0d0d0;
+            font-size: 0.95em;
+            line-height: 2;
+            margin-bottom: 10px;
+        }
+        .letter-box p:last-child { margin-bottom: 0; }
+        .letter-box .greeting {
+            font-size: 1.1em;
+            color: #e0e0e0;
+            margin-bottom: 14px;
+        }
+
+        /* ========== Section Title ========== */
+        .sec-title {
+            display: flex;
+            align-items: center;
+            font-size: 1.15em;
+            color: #7fa882;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .sec-icon { font-size: 1.1em; margin-right: 10px; }
+
+        .sec-intro {
+            color: #b0b0b0;
+            font-size: 0.9em;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .highlight { color: #c9a96e; font-weight: 500; }
+
+        /* ========== Cards ========== */
+        .card {
+            background: rgba(255,255,255,0.04);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .card-title {
+            font-size: 0.95em;
+            color: #7fa882;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .card-title::before {
+            content: '';
+            display: inline-block;
+            width: 7px; height: 7px;
+            background: #7fa882;
+            border-radius: 50%;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        .card ul { list-style: none; }
+        .card li {
+            padding: 4px 0;
+            padding-left: 18px;
+            position: relative;
+            color: #c0c0c0;
+            font-size: 0.88em;
+            line-height: 1.7;
+        }
+        .card li::before {
+            content: '·';
+            position: absolute;
+            left: 4px;
+            color: #7fa882;
+            font-weight: bold;
+            font-size: 1.3em;
+            top: 4px;
+        }
+        .card li strong { color: #d8d8d8; }
+
+        /* ========== Warning Box ========== */
+        .warning-box {
+            background: rgba(200,150,80,0.06);
+            border: 1px solid rgba(200,150,80,0.15);
+            border-left: 3px solid #c9a96e;
+            border-radius: 0 12px 12px 0;
+            padding: 16px;
+            margin: 12px 0;
+        }
+        .warning-box .w-title {
+            color: #c9a96e;
+            font-weight: 600;
+            font-size: 0.95em;
+            margin-bottom: 8px;
+        }
+        .warning-box ul { list-style: none; }
+        .warning-box li {
+            padding: 3px 0;
+            padding-left: 22px;
+            position: relative;
+            color: #b8a88a;
+            font-size: 0.86em;
+            line-height: 1.7;
+        }
+        .warning-box li::before {
+            content: '⚠';
+            position: absolute;
+            left: 0;
+            font-size: 0.85em;
+        }
+        .warning-box li strong { color: #d4b896; }
+
+        /* ========== Quote Box ========== */
+        .quote-box {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 14px 0;
+            text-align: center;
+            position: relative;
+            border: 1px solid rgba(127,168,130,0.12);
+        }
+        .quote-box::before {
+            content: '\201C';
+            position: absolute;
+            top: 2px; left: 12px;
+            font-size: 3em;
+            color: #7fa882;
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+        .quote-box p {
+            font-size: 0.92em;
+            color: #a0b8a2;
+            font-style: italic;
+            line-height: 1.9;
+        }
+
+        /* ========== Sub-title ========== */
+        .sub-title {
+            font-size: 0.98em;
+            color: #7fa882;
+            margin: 14px 0 8px 0;
+            font-weight: 500;
+        }
+
+        /* ========== Tip Cards ========== */
+        .tip-card {
+            background: rgba(127,168,130,0.06);
+            border-radius: 10px;
+            padding: 12px 14px;
+            border: 1px solid rgba(127,168,130,0.1);
+            margin-bottom: 8px;
+        }
+        .tip-card .tip-icon { font-size: 1.1em; margin-bottom: 2px; display: inline-block; }
+        .tip-card h4 { color: #7fa882; font-size: 0.88em; margin-bottom: 2px; }
+        .tip-card p { font-size: 0.84em; color: #b0b0b0; line-height: 1.6; }
+
+        /* ========== Annotation ========== */
+        .annotation {
+            display: block;
+            font-size: 0.78em;
+            color: #666;
+            font-style: italic;
+            margin-top: 2px;
+            padding-left: 2px;
+        }
+
+        /* ========== Doctor Section ========== */
+        .doctor-box {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 12px 0;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .doctor-box h3 {
+            color: #c9a96e;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+        .sign-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 6px 10px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 5px;
+        }
+        .sign-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px; height: 22px;
+            background: #7fa882;
+            color: #1a1a1a;
+            border-radius: 50%;
+            font-size: 0.72em;
+            font-weight: 600;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        .sign-text { color: #c0c0c0; font-size: 0.84em; line-height: 1.6; }
+        .sign-text strong { color: #d8d8d8; }
+
+        /* ========== Closing ========== */
+        .closing-content { text-align: center; }
+        .closing-msg {
+            font-size: 1em;
+            line-height: 2;
+            color: #c0c0c0;
+            margin-bottom: 24px;
+        }
+        .closing-msg strong { color: #7fa882; font-size: 1.05em; }
+        .signature {
+            font-size: 0.95em;
+            color: #8a8a8a;
+            font-style: italic;
+            margin-bottom: 24px;
+        }
+        .creator-box {
+            padding: 16px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .creator-label {
+            display: inline-block;
+            background: #7fa882;
+            color: #1a1a1a;
+            padding: 3px 14px;
+            border-radius: 4px;
+            font-size: 0.78em;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        .creator-names {
+            font-size: 0.92em;
+            color: #b0b0b0;
+            line-height: 1.8;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.2);
+            font-size: 0.8em;
+            letter-spacing: 0.5px;
+        }
+
+        /* ========== Divider ========== */
+        .divider {
+            text-align: center;
+            margin: 12px 0;
+            color: rgba(127,168,130,0.3);
+            font-size: 0.85em;
+            letter-spacing: 8px;
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 600px) {
+            .page-inner { padding: 30px 18px; }
+            .cover-title { font-size: 1.5em; letter-spacing: 2px; }
+            .cover-icon { font-size: 2.5em; }
+            .card { padding: 14px; }
+            .letter-box { padding: 18px 16px; }
+            .click-zone-left, .click-zone-right { width: 15%; }
+        }
+
+        /* ========== Scrollbar ========== */
+        .page::-webkit-scrollbar { width: 0; }
+
+        /* ========== Page transition entrance ========== */
+        .page-inner {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s;
+        }
+        .page.visible .page-inner {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<div class="slider-wrapper" id="sliderWrapper">
+    <div class="slider-track" id="sliderTrack">
+
+        <!-- ===== PAGE 1: Cover ===== -->
+        <div class="page page-cover visible">
+            <div class="page-inner">
+                <div class="cover-content">
+                    <div class="cover-icon">🌙</div>
+                    <h1 class="cover-title">给杨大哥的一封信</h1>
+                    <p class="cover-from">from ali + 小葡萄</p>
+                    <div class="cover-line"></div>
+                    <p class="cover-subtitle">愿您夜夜好眠</p>
+                    <p class="cover-credit">创作者：ali 和她的 agent 小葡萄</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PAGE 2: Opening ===== -->
+        <div class="page page-dark">
+            <div class="page-inner">
+                <div class="sec-title">
+                    <span class="sec-icon">✉️</span>
+                    写在前面的话
+                </div>
+                <div class="letter-box">
+                    <p class="greeting">哥：</p>
+                    <p>上次微信您说晚上睡不好，一晚上醒两次，吃两次药，我听了心里担心，一直放不下。</p>
+                    <p>睡眠问题确实常见，但翻来覆去睡不着、半夜惊醒的滋味有多难受，我想想都不舒服。我用 Ai 了解了一下，整理了一些，希望您睡眠好起来！</p>
+                    <p>有安眠药的注意事项，也有不吃药改善睡眠的方法。不着急，慢慢看。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PAGE 3: Medication Basics ===== -->
+        <div class="page page-mid">
+            <div class="page-inner">
+                <div class="sec-title">
+                    <span class="sec-icon">💊</span>
+                    关于安眠药，这些事想提醒您
+                </div>
+                <p class="sec-intro">哥，吃安眠药不是坏事，医生开给您就是为了帮助渡过难关。但有些注意事项得知道——<span class="highlight">用得更安全，心里才踏实。</span></p>
+
+                <div class="card">
+                    <div class="card-title">用药基本原则</div>
+                    <ul>
+                        <li><strong>短期、小量、间断</strong>是安全法则，连续使用一般不超过 2-4 周</li>
+                        <li>遵医嘱服用，不自行加量、减量或突然停药</li>
+                        <li>服药后立即卧床，不看手机不起身，防头晕跌倒</li>
+                        <li>第二天起床先坐床边缓 30 秒再站起</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">特别注意</div>
+                    <ul>
+                        <li><strong>绝对不能喝酒</strong>（这个您不喝酒，不用担心）</li>
+                        <li>同时在吃镇静类、抗过敏、止咳药的，一定告诉医生</li>
+                        <li>有打鼾憋气、呼吸暂停、慢阻肺的，用药前必须让医生评估</li>
+                        <li>肝肾功能不好的，药物代谢更慢，需调整剂量</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PAGE 4: Long-term Risks + Quote ===== -->
+        <div class="page page-warm">
+            <div class="page-inner">
+                <div class="sec-title">
+                    <span class="sec-icon">⚠️</span>
+                    长期使用的风险
+                </div>
+
+                <div class="warning-box">
+                    <div class="w-title">⚠️ 长期使用需注意</div>
+                    <ul>
+                        <li><strong>耐受和依赖</strong>：连续超 2-4 周可能产生依赖，不吃就睡不着</li>
+                        <li><strong>次日残留</strong>：白天头昏、走路不稳、反应变慢，增加跌倒风险</li>
+                        <li><strong>记忆力影响</strong>：长期使用可能健忘、注意力不集中</li>
+                        <li><strong>睡眠质量下降</strong>：看似睡着了，实则深度睡眠减少</li>
+                    </ul>
+                </div>
+
+                <div class="quote-box">
+                    <p>安眠药是帮您睡眠的「临时拐杖」，<br>不该成为伴您余生的「终身依靠」。<br>最终目标是在医生帮助下逐步减量，重建自然睡眠。</p>
+                </div>
+
+                <div class="divider">· · ·</div>
+
+                <div class="sec-title" style="margin-top:8px;">
+                    <span class="sec-icon">🌿</span>
+                    不吃药，也能睡得更好
+                </div>
+                <p class="sec-intro" style="margin-bottom:0;"><span class="highlight">调整生活习惯比吃药更根本、更持久。</span>这些方法国际睡眠医学指南都推荐，挑几条试试看。</p>
+            </div>
+        </div>
+
+        <!-- ===== PAGE 5: Habits ===== -->
+        <div class="page page-green">
+            <div class="page-inner">
+                <div class="sec-title">
+                    <span class="sec-icon">🕐</span>
+                    作息习惯：重建生物钟
+                </div>
+                <div class="tip-card">
+                    <h4>⏰ 固定起床时间</h4>
+                    <p>每天同一时间起床，包括周末。哪怕没睡好也不赖床，帮身体建立稳定节律。</p>
+                </div>
+                <div class="tip-card">
+                    <h4>🛏️ 床只用来睡觉</h4>
+                    <p>不在床上看手机、想事情。让大脑形成条件反射：上床 = 该睡了。</p>
+                </div>
+                <div class="tip-card">
+                    <h4>🌙 20分钟规则</h4>
+                    <p>躺下 20 分钟睡不着就起来做点安静的事，有困意了再回床。</p>
+                </div>
+                <div class="tip-card">
+                    <h4>☀️ 最佳入睡时间</h4>
+                    <p>建议晚上 9-10 点入睡，不要太早也不要太晚，贴合生物钟。</p>
+                    <span class="annotation">（这个以我对杨大哥的了解，估计睡不着，做不到）</span>
+                </div>
+
+                <div class="sub-title" style="margin-top:14px;">🧘 放松技巧：让身心安静下来</div>
+                <div class="card">
+                    <ul>
+                        <li><strong>腹式深呼吸</strong>：吸气4秒，屏息2秒，呼气6秒，重复5-10次</li>
+                        <li><strong>渐进性肌肉放松</strong>：从脚趾开始，依次绷紧-放松各部位</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PAGE 6: More relaxation + Diet ===== -->
+        <div class="page page-mid">
+            <div class="page-inner">
+                <div class="sec-title">
+                    <span class="sec-icon">🧘</span>
+                    放松技巧（续）
+                </div>
+                <div class="card">
+                    <ul>
+                        <li><strong>温水泡脚 10-15 分钟</strong>：促进血液循环，给大脑传递入睡信号
+                            <span class="annotation">（这个容易实现，试试看）</span>
+                        </li>
+                        <li><strong>睡前写下烦心事</strong>：把担心的写下来，告诉自己「明天再处理」
+                            <span class="annotation">（这个可以让ai当你的日记本，说给她，她记着）</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sub-title">🍵 饮食注意</div>
+                <div class="card">
+                    <ul>
+                        <li>下午 2 点后不喝浓茶咖啡</li>
+                        <li>晚餐七分饱，睡前 3 小时不吃正餐</li>
+                        <li>睡前少喝水</li>
+                    </ul>
+                </div>
+
+                <div class="sub-title">🚶 适度运动 & 晒太阳</div>
+                <div class="card">
+                    <ul>
+                        <li>每天散步 30 分钟、打太极、做八段锦</li>
+                        <li>睡前 3 小时别剧烈运动</li>
+                        <li>上午或下午出门晒 20-30 分钟，自然光调节褪黑素</li>
+                        <li>午睡控制在 40 分钟内，下午 3 点后不再睡觉</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PAGE 7: Environment + Doctor Signals ===== -->
+        <div class="page page-dark">
+            <div class="page-inner">
+                <div class="sec-title">
+                    <span class="sec-icon">🏠</span>
+                    卧室环境
+                </div>
+                <div class="card">
+                    <ul>
+                        <li>温度保持 18-22℃</li>
+                        <li>遮光窗帘，关掉所有光源（包括充电器指示灯）</li>
+                        <li>床垫软硬适中，枕头高度贴合肩膀</li>
+                        <li>保持安静，必要时用耳塞</li>
+                        <li>睡前 1 小时放下手机——蓝光抑制褪黑素，越刷越清醒
+                            <span class="annotation">（这个要努力戒掉）</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sub-title">🏥 这些情况，该去看医生</div>
+                <p class="sec-intro" style="margin-bottom:10px;">哥，大部分睡眠问题调整生活习惯就能改善。但出现下面这些情况，<span class="highlight">别硬扛，去看看</span>。</p>
+
+                <div class="doctor-box" style="margin:0;">
+                    <div class="sign-item">
+                        <div class="sign-number">1</div>
+                        <div class="sign-text"><strong>失眠超过 1 个月</strong>，调整作息后仍无改善</div>
+                    </div>
+                    <div class="sign-item">
+                        <div class="sign-number">2</div>
+                        <div class="sign-text"><strong>白天明显受影响</strong>：头昏乏力、注意力差</div>
+                    </div>
+                    <div class="sign-item">
+                        <div class="sign-number">3</div>
+                        <div class="sign-text"><strong>打鼾严重或呼吸暂停</strong>：夜间憋气、被憋醒</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PAGE 8: More Doctor Signals + Department ===== -->
+        <div class="page page-warm">
+            <div class="page-inner">
+                <div class="sec-title">
+                    <span class="sec-icon">🏥</span>
+                    就医信号（续）
+                </div>
+                <div class="doctor-box" style="margin-top:0;">
+                    <div class="sign-item">
+                        <div class="sign-number">4</div>
+                        <div class="sign-text"><strong>腿部不自主抽动</strong>：睡眠中腿频繁动，影响入睡</div>
+                    </div>
+                    <div class="sign-item">
+                        <div class="sign-number">5</div>
+                        <div class="sign-text"><strong>情绪问题明显</strong>：长期焦虑抑郁、对什么都不感兴趣</div>
+                    </div>
+                    <div class="sign-item">
+                        <div class="sign-number">6</div>
+                        <div class="sign-text"><strong>安眠药效果变差</strong>：需要加量才有效</div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top:14px;">
+                    <div class="card-title">看什么科？</div>
+                    <ul>
+                        <li><strong>神经内科</strong>或<strong>睡眠医学科</strong>：做睡眠评估，排查器质性问题</li>
+                        <li><strong>心身医学科/心理科</strong>：伴随焦虑情绪低落时更合适</li>
+                        <li>了解一下<strong>失眠认知行为治疗（CBT-I）</strong>：国际指南推荐的一线方法，不吃药，通过调整认知和行为改善睡眠</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PAGE 9: Closing ===== -->
+        <div class="page page-end">
+            <div class="page-inner">
+                <div class="closing-content">
+                    <div style="font-size:2.5em; margin-bottom:20px; opacity:0.7;">🌙</div>
+                    <p class="closing-msg">
+                        杨大哥，写这么多就是想说：<br>
+                        <strong>注意身体，好好睡觉。</strong><br><br>
+                        慢慢调整，不着急，不舒服就去看医生。<br>
+                        虽然不在身边，但心里一直有惦记。
+                    </p>
+                    <p class="signature">—— Ali，2026.7.21晚</p>
+                    <div class="creator-box">
+                        <span class="creator-label">创作者</span>
+                        <div class="creator-names">阿利和她的智能体🤖小葡萄</div>
+                    </div>
+                    <p class="footer-text">愿您夜夜好眠 · 阿利为杨大哥制作</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Page Indicator -->
+<div class="page-indicator" id="pageIndicator"></div>
+
+<!-- Swipe Hint -->
+<div class="swipe-hint" id="swipeHint">← 滑动翻页 →</div>
+
+<!-- Click Zones -->
+<div class="click-zone-left" id="clickLeft"></div>
+<div class="click-zone-right" id="clickRight"></div>
+
+<script>
+(function() {
+    const track = document.getElementById('sliderTrack');
+    const wrapper = document.getElementById('sliderWrapper');
+    const indicator = document.getElementById('pageIndicator');
+    const hint = document.getElementById('swipeHint');
+    const pages = document.querySelectorAll('.page');
+    const total = pages.length;
+    let current = 0;
+    let startX = 0, startY = 0, deltaX = 0, isDragging = false, isHorizontal = null;
+
+    // Build dots
+    for (let i = 0; i < total; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => goTo(i));
+        indicator.appendChild(dot);
+    }
+
+    function updateIndicator() {
+        const dots = indicator.querySelectorAll('.dot');
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    function updateVisibility() {
+        pages.forEach((p, i) => {
+            p.classList.toggle('visible', i === current);
+        });
+    }
+
+    function goTo(index) {
+        if (index < 0) index = 0;
+        if (index >= total) index = total - 1;
+        current = index;
+        track.style.transform = 'translateX(' + (-current * 100) + 'vw)';
+        updateIndicator();
+        updateVisibility();
+        // Hide hint after first swipe
+        if (current > 0 && hint) hint.style.display = 'none';
+    }
+
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    // Touch events
+    wrapper.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        isDragging = true;
+        isHorizontal = null;
+        track.classList.add('dragging');
+    }, { passive: true });
+
+    wrapper.addEventListener('touchmove', function(e) {
+        if (!isDragging) return;
+        deltaX = e.touches[0].clientX - startX;
+        const deltaY = e.touches[0].clientY - startY;
+
+        // Determine direction on first significant move
+        if (isHorizontal === null && (Math.abs(deltaX) > 8 || Math.abs(deltaY) > 8)) {
+            isHorizontal = Math.abs(deltaX) > Math.abs(deltaY);
+        }
+
+        if (isHorizontal) {
+            e.preventDefault();
+            let offset = -current * window.innerWidth + deltaX;
+            // Resistance at edges
+            if ((current === 0 && deltaX > 0) || (current === total - 1 && deltaX < 0)) {
+                offset = -current * window.innerWidth + deltaX * 0.3;
+            }
+            track.style.transform = 'translateX(' + offset + 'px)';
+        }
+    }, { passive: false });
+
+    wrapper.addEventListener('touchend', function(e) {
+        if (!isDragging) return;
+        isDragging = false;
+        track.classList.remove('dragging');
+
+        if (isHorizontal && Math.abs(deltaX) > 50) {
+            if (deltaX < 0) next();
+            else prev();
+        } else {
+            goTo(current); // snap back
+        }
+        deltaX = 0;
+        isHorizontal = null;
+    });
+
+    // Click zones
+    document.getElementById('clickLeft').addEventListener('click', prev);
+    document.getElementById('clickRight').addEventListener('click', next);
+
+    // Keyboard
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prev();
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next();
+    });
+
+    // Mouse drag (for desktop)
+    let mouseStart = 0, mouseDelta = 0, mouseDown = false;
+    wrapper.addEventListener('mousedown', function(e) {
+        mouseStart = e.clientX;
+        mouseDown = true;
+        track.classList.add('dragging');
+        e.preventDefault();
+    });
+    wrapper.addEventListener('mousemove', function(e) {
+        if (!mouseDown) return;
+        mouseDelta = e.clientX - mouseStart;
+        let offset = -current * window.innerWidth + mouseDelta;
+        if ((current === 0 && mouseDelta > 0) || (current === total - 1 && mouseDelta < 0)) {
+            offset = -current * window.innerWidth + mouseDelta * 0.3;
+        }
+        track.style.transform = 'translateX(' + offset + 'px)';
+    });
+    wrapper.addEventListener('mouseup', function() {
+        if (!mouseDown) return;
+        mouseDown = false;
+        track.classList.remove('dragging');
+        if (Math.abs(mouseDelta) > 50) {
+            if (mouseDelta < 0) next();
+            else prev();
+        } else {
+            goTo(current);
+        }
+        mouseDelta = 0;
+    });
+    wrapper.addEventListener('mouseleave', function() {
+        if (mouseDown) {
+            mouseDown = false;
+            track.classList.remove('dragging');
+            goTo(current);
+            mouseDelta = 0;
+        }
+    });
+
+    // Init
+    goTo(0);
+
+    // Auto-hide hint
+    setTimeout(() => { if (hint) hint.style.opacity = '0'; }, 6000);
+    setTimeout(() => { if (hint) hint.style.display = 'none'; }, 7000);
+})();
+</script>
+
+</body>
+</html>
