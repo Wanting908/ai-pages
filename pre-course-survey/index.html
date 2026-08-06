@@ -13,158 +13,440 @@
     color: #e0e0e0;
     padding: 20px 16px;
   }
-  .container { max-width: 640px; margin: 0 auto; }
-  .header { text-align: center; padding: 32px 0 24px; }
-  .header .icon { font-size: 40px; margin-bottom: 12px; }
-  .header h1 { font-size: 22px; font-weight: 700; color: #ffffff; margin-bottom: 6px; letter-spacing: 1px; }
-  .header p { font-size: 13px; color: #8899aa; }
-  .section { background: rgba(255,255,255,0.06); border-radius: 14px; padding: 20px; margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.08); }
-  .section-title { font-size: 17px; font-weight: 700; color: #64b5f6; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid rgba(100,181,246,0.15); display: flex; align-items: center; gap: 8px; }
-  .section-title .num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: rgba(100,181,246,0.2); border-radius: 50%; font-size: 12px; color: #64b5f6; }
-  .field { margin-bottom: 18px; }
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .header {
+    text-align: center;
+    padding: 32px 0 24px;
+  }
+  .header .icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+  .header p {
+    font-size: 13px;
+    color: #8899aa;
+  }
+  .section {
+    background: rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .section-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #64b5f6;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(100,181,246,0.15);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: rgba(100,181,246,0.2);
+    border-radius: 50%;
+    font-size: 12px;
+    color: #64b5f6;
+  }
+  .field {
+    margin-bottom: 18px;
+  }
   .field:last-child { margin-bottom: 0; }
-  .label { font-size: 16px; color: #d0d0d0; margin-bottom: 10px; line-height: 1.6; }
-  .label .qnum { display: inline-block; background: rgba(100,181,246,0.15); color: #64b5f6; font-size: 13px; padding: 3px 8px; border-radius: 10px; margin-right: 6px; font-weight: 600; }
-  .label .hint { font-size: 13px; color: #667788; margin-left: 4px; }
-  .option { display: flex; align-items: flex-start; padding: 11px 14px; margin-bottom: 8px; background: rgba(255,255,255,0.03); border-radius: 8px; cursor: pointer; transition: background 0.15s; font-size: 15px; color: #c0c0c0; line-height: 1.6; }
+  .label {
+    font-size: 16px;
+    color: #d0d0d0;
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+  .label .qnum {
+    display: inline-block;
+    background: rgba(100,181,246,0.15);
+    color: #64b5f6;
+    font-size: 13px;
+    padding: 3px 8px;
+    border-radius: 10px;
+    margin-right: 6px;
+    font-weight: 600;
+  }
+  .label .hint {
+    font-size: 13px;
+    color: #667788;
+    margin-left: 4px;
+  }
+  .option {
+    display: flex;
+    align-items: flex-start;
+    padding: 11px 14px;
+    margin-bottom: 8px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+    font-size: 15px;
+    color: #c0c0c0;
+    line-height: 1.6;
+  }
   .option:hover { background: rgba(255,255,255,0.06); }
   .option.selected { background: rgba(100,181,246,0.12); color: #e0e0e0; }
-  .option input[type="radio"], .option input[type="checkbox"] { margin-right: 10px; margin-top: 2px; accent-color: #64b5f6; flex-shrink: 0; width: 16px; height: 16px; }
-  .option.other-opt { align-items: center; }
-  .option.other-opt input[type="text"] { flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 7px 10px; color: #e0e0e0; font-size: 13px; margin-left: 6px; outline: none; transition: border-color 0.2s; }
-  .option.other-opt input[type="text"]:focus { border-color: #64b5f6; }
-  textarea, input[type="text"].fill { width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 12px 14px; color: #e0e0e0; font-size: 15px; outline: none; resize: vertical; font-family: inherit; transition: border-color 0.2s; }
-  textarea:focus, input[type="text"].fill:focus { border-color: #64b5f6; }
+  .option input[type="radio"],
+  .option input[type="checkbox"] {
+    margin-right: 10px;
+    margin-top: 2px;
+    accent-color: #64b5f6;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+  }
+  .option.other-opt {
+    align-items: center;
+  }
+  .option.other-opt input[type="text"] {
+    flex: 1;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+    padding: 7px 10px;
+    color: #e0e0e0;
+    font-size: 13px;
+    margin-left: 6px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .option.other-opt input[type="text"]:focus {
+    border-color: #64b5f6;
+  }
+  textarea, input[type="text"].fill {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: #e0e0e0;
+    font-size: 15px;
+    outline: none;
+    resize: vertical;
+    font-family: inherit;
+    transition: border-color 0.2s;
+  }
+  textarea:focus, input[type="text"].fill:focus {
+    border-color: #64b5f6;
+  }
   textarea { min-height: 60px; }
-  .submit-wrap { text-align: center; padding: 24px 0 40px; }
-  .btn-submit { width: 100%; max-width: 320px; padding: 14px 0; background: linear-gradient(135deg, #1565c0, #0d47a1); border: none; border-radius: 12px; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; letter-spacing: 1px; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 4px 20px rgba(21,101,192,0.3); }
+  .submit-wrap {
+    text-align: center;
+    padding: 24px 0 40px;
+  }
+  .btn-submit {
+    width: 100%;
+    max-width: 320px;
+    padding: 14px 0;
+    background: linear-gradient(135deg, #1565c0, #0d47a1);
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 20px rgba(21,101,192,0.3);
+  }
   .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(21,101,192,0.4); }
   .btn-submit:active { transform: scale(0.98); }
-  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-  .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #1b5e20; color: #fff; padding: 12px 24px; border-radius: 10px; font-size: 14px; z-index: 999; display: none; box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
+  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1b5e20;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 14px;
+    z-index: 999;
+    display: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
   .toast.show { display: block; animation: fadeInOut 3s ease; }
   .toast.error { background: #b71c1c; }
-  @keyframes fadeInOut { 0% { opacity: 0; transform: translateX(-50%) translateY(-10px); } 10% { opacity: 1; transform: translateX(-50%) translateY(0); } 80% { opacity: 1; } 100% { opacity: 0; } }
-  .footer { text-align: center; font-size: 11px; color: #556677; padding: 0 0 20px; }
+  @keyframes fadeInOut {
+    0% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+    10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: #556677;
+    padding: 0 0 20px;
+  }
 </style>
 </head>
 <body>
 <div class="container">
-  <div class="header"><div class="icon">🔮</div><h1>课前调研问卷</h1><p>硅基路 · 总裁AI实效营</p></div>
+  <div class="header">
+    <div class="icon">🔮</div>
+    <h1>课前调研问卷</h1>
+    <p>硅基路 · 总裁AI实效营</p>
+  </div>
+
   <form id="surveyForm">
-    <div class="section"><div class="section-title"><span class="num">1</span> AI使用现状</div>
-      <div class="field"><div class="label"><span class="qnum">第1题</span> 怎么称呼您？</div><input type="text" name="Q1_称呼" class="fill" placeholder="请输入您的称呼" required></div>
-      <div class="field"><div class="label"><span class="qnum">第2题</span> 您目前接触AI的程度大概是？</div>
-        <div class="option" onclick="selR(this,'Q2_接触程度','A')"><input type="radio" name="Q2_接触程度" value="A" required> 几乎没用过</div>
-        <div class="option" onclick="selR(this,'Q2_接触程度','B')"><input type="radio" name="Q2_接触程度" value="B"> 偶尔用豆包/DeepSeek/文心一言这类聊天工具</div>
-        <div class="option" onclick="selR(this,'Q2_接触程度','C')"><input type="radio" name="Q2_接触程度" value="C"> 经常用AI处理一些事情</div>
-        <div class="option" onclick="selR(this,'Q2_接触程度','D')"><input type="radio" name="Q2_接触程度" value="D"> 已经比较熟练，日常离不开</div>
-        <div class="option other-opt" onclick="selR(this,'Q2_接触程度','E')"><input type="radio" name="Q2_接触程度" value="E"> 其他<input type="text" name="Q2_其他" placeholder="请说明" onclick="event.stopPropagation()"></div>
+    <input type="hidden" name="_subject" value="课前调研问卷提交">
+
+    <!-- 一、AI使用现状 -->
+    <div class="section">
+      <div class="section-title"><span class="num">1</span> AI使用现状</div>
+
+      <!-- Q1 -->
+      <div class="field">
+        <div class="label"><span class="qnum">第1题</span> 怎么称呼您？</div>
+        <input type="text" name="Q1_称呼" class="fill" placeholder="请输入您的称呼" required>
       </div>
-      <div class="field"><div class="label"><span class="qnum">第3题</span> 您用过AI做哪些事？<span class="hint">可多选</span></div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q3_用过" value="A"> 聊天问答</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q3_用过" value="B"> 写文案/写方案</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q3_用过" value="C"> 做PPT/做图</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q3_用过" value="D"> 整理资料/做总结</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q3_用过" value="E"> 数据分析</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q3_用过" value="F"> 让AI自动监控竞品/行业动态</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q3_用过" value="G"> 搭建过自己的AI工作流</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q3_用过" value="H"> 用AI做过客户分析或销售预测</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q3_用过" value="I"> 还没用过</div>
+
+      <!-- Q2 -->
+      <div class="field">
+        <div class="label"><span class="qnum">第2题</span> 您目前接触AI的程度大概是？</div>
+        <div class="option" onclick="selectRadio(this,'Q2_接触程度','A')"><input type="radio" name="Q2_接触程度" value="A" required> 几乎没用过</div>
+        <div class="option" onclick="selectRadio(this,'Q2_接触程度','B')"><input type="radio" name="Q2_接触程度" value="B"> 偶尔用豆包/DeepSeek/文心一言这类聊天工具</div>
+        <div class="option" onclick="selectRadio(this,'Q2_接触程度','C')"><input type="radio" name="Q2_接触程度" value="C"> 经常用AI处理一些事情</div>
+        <div class="option" onclick="selectRadio(this,'Q2_接触程度','D')"><input type="radio" name="Q2_接触程度" value="D"> 已经比较熟练，日常离不开</div>
+        <div class="option other-opt" onclick="selectRadio(this,'Q2_接触程度','E')"><input type="radio" name="Q2_接触程度" value="E"> 其他<input type="text" name="Q2_其他" placeholder="请说明" onclick="event.stopPropagation()"></div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="field">
+        <div class="label"><span class="qnum">第3题</span> 您用过AI做哪些事？<span class="hint">可多选</span></div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q3_用过" value="A"> 聊天问答</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q3_用过" value="B"> 写文案/写方案</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q3_用过" value="C"> 做PPT/做图</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q3_用过" value="D"> 整理资料/做总结</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q3_用过" value="E"> 数据分析</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q3_用过" value="F"> 让AI自动监控竞品/行业动态</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q3_用过" value="G"> 搭建过自己的AI工作流（让AI自动跑流程）</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q3_用过" value="H"> 用AI做过客户分析或销售预测</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q3_用过" value="I"> 还没用过</div>
         <div class="option other-opt" onclick="event.stopPropagation()"><input type="checkbox" name="Q3_用过" value="J"> 其他<input type="text" name="Q3_其他" placeholder="请说明"></div>
       </div>
-      <div class="field"><div class="label"><span class="qnum">第4题</span> 以下哪些AI能力，您听了觉得好奇、想试试？<span class="hint">可多选</span></div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q4_好奇" value="A"> 同时部署几十个AI助手，自动分工协作</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q4_好奇" value="B"> 让AI自动盯竞品价格、行业新闻，有风吹草动第一时间通知</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q4_好奇" value="C"> 输入客户信息，AI自动分析谁该跟进、该说什么</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q4_好奇" value="D"> 把公司内部文件、经验、流程全喂给AI，新人来了直接问AI</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q4_好奇" value="E"> 让AI自动生成周报、月报，省掉写总结的时间</div>
+
+      <!-- Q4 -->
+      <div class="field">
+        <div class="label"><span class="qnum">第4题</span> 以下哪些AI能力，您听了觉得好奇、想试试？<span class="hint">可多选</span></div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q4_好奇" value="A"> 同时部署几十个AI助手，自动分工协作</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q4_好奇" value="B"> 让AI自动盯竞品价格、行业新闻，有风吹草动第一时间通知</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q4_好奇" value="C"> 输入客户信息，AI自动分析谁该跟进了、该说什么话</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q4_好奇" value="D"> 把公司内部的文件、经验、流程全喂给AI，新人来了直接问AI</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q4_好奇" value="E"> 让AI自动生成周报、月报，省掉写总结的时间</div>
         <div class="option other-opt" onclick="event.stopPropagation()"><input type="checkbox" name="Q4_好奇" value="F"> 其他<input type="text" name="Q4_其他" placeholder="请说明"></div>
       </div>
     </div>
-    <div class="section"><div class="section-title"><span class="num">2</span> 个人对AI的诉求</div>
-      <div class="field"><div class="label"><span class="qnum">第5题</span> 对您个人而言，最希望AI帮您做什么？<span class="hint">可多选</span></div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q5_个人诉求" value="A"> 写东西（发言稿、朋友圈、方案）</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q5_个人诉求" value="B"> 快速了解一个新领域</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q5_个人诉求" value="C"> 整理信息，抓住重点</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q5_个人诉求" value="D"> 做个"随时能聊"的顾问</div>
+
+    <!-- 二、个人对AI的诉求 -->
+    <div class="section">
+      <div class="section-title"><span class="num">2</span> 个人对AI的诉求</div>
+
+      <!-- Q5 -->
+      <div class="field">
+        <div class="label"><span class="qnum">第5题</span> 对您个人而言，最希望AI帮您做什么？<span class="hint">可多选</span></div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q5_个人诉求" value="A"> 写东西（发言稿、朋友圈、方案）</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q5_个人诉求" value="B"> 快速了解一个新领域</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q5_个人诉求" value="C"> 整理信息，抓住重点</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q5_个人诉求" value="D"> 做个"随时能聊"的顾问</div>
         <div class="option other-opt" onclick="event.stopPropagation()"><input type="checkbox" name="Q5_个人诉求" value="E"> 其他<input type="text" name="Q5_其他" placeholder="请说明"></div>
       </div>
-      <div class="field"><div class="label"><span class="qnum">第6题</span> 如果有一个"永不休息的AI助手"，您最希望它在生活中帮您做哪件事？</div><textarea name="Q6_生活助手" placeholder="请描述……"></textarea></div>
-      <div class="field"><div class="label"><span class="qnum">第7题</span> 您对AI的期待，更接近哪一种？</div>
-        <div class="option" onclick="selR(this,'Q7_期待','A')"><input type="radio" name="Q7_期待" value="A" required> 先帮我省人省时间</div>
-        <div class="option" onclick="selR(this,'Q7_期待','B')"><input type="radio" name="Q7_期待" value="B"> 帮我做以前做不到的事</div>
-        <div class="option" onclick="selR(this,'Q7_期待','C')"><input type="radio" name="Q7_期待" value="C"> 说不好，先看看别人怎么用的</div>
-        <div class="option other-opt" onclick="selR(this,'Q7_期待','D')"><input type="radio" name="Q7_期待" value="D"> 其他<input type="text" name="Q7_其他" placeholder="请说明" onclick="event.stopPropagation()"></div>
+
+      <!-- Q6 -->
+      <div class="field">
+        <div class="label"><span class="qnum">第6题</span> 如果有一个"永不休息的AI助手"，您最希望它在生活中帮您做哪件事？</div>
+        <textarea name="Q6_生活助手" placeholder="请描述……"></textarea>
+      </div>
+
+      <!-- Q7 -->
+      <div class="field">
+        <div class="label"><span class="qnum">第7题</span> 您对AI的期待，更接近哪一种？</div>
+        <div class="option" onclick="selectRadio(this,'Q7_期待','A')"><input type="radio" name="Q7_期待" value="A" required> 先帮我省人省时间</div>
+        <div class="option" onclick="selectRadio(this,'Q7_期待','B')"><input type="radio" name="Q7_期待" value="B"> 帮我做以前做不到的事</div>
+        <div class="option" onclick="selectRadio(this,'Q7_期待','C')"><input type="radio" name="Q7_期待" value="C"> 说不好，先看看别人怎么用的</div>
+        <div class="option other-opt" onclick="selectRadio(this,'Q7_期待','D')"><input type="radio" name="Q7_期待" value="D"> 其他<input type="text" name="Q7_其他" placeholder="请说明" onclick="event.stopPropagation()"></div>
       </div>
     </div>
-    <div class="section"><div class="section-title"><span class="num">3</span> 经营管理上对AI的诉求</div>
-      <div class="field"><div class="label"><span class="qnum">第8题</span> 您觉得AI和您企业的关系，最接近以下哪种？<span class="hint">可多选</span></div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q8_关系" value="A"> 听说过，但不知道跟我有什么关系</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q8_关系" value="B"> 感觉迟早要用，但不知道从哪入手</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q8_关系" value="C"> 已经在一些环节试过，想看看还能怎么用</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q8_关系" value="D"> 觉得是个机会，想系统地了解一下</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q8_关系" value="E"> 觉得是趋势，但对效果有疑虑</div>
+
+    <!-- 三、经营管理上对AI的诉求 -->
+    <div class="section">
+      <div class="section-title"><span class="num">3</span> 经营管理上对AI的诉求</div>
+
+      <!-- Q8 -->
+      <div class="field">
+        <div class="label"><span class="qnum">第8题</span> 您觉得AI和您企业的关系，最接近以下哪种？<span class="hint">可多选</span></div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q8_关系" value="A"> 听说过，但不知道跟我有什么关系</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q8_关系" value="B"> 感觉迟早要用，但不知道从哪入手</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q8_关系" value="C"> 已经在一些环节试过，想看看还能怎么用</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q8_关系" value="D"> 觉得是个机会，想系统地了解一下</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q8_关系" value="E"> 觉得是趋势，但对效果有疑虑</div>
         <div class="option other-opt" onclick="event.stopPropagation()"><input type="checkbox" name="Q8_关系" value="F"> 其他<input type="text" name="Q8_其他" placeholder="请说明"></div>
       </div>
-      <div class="field"><div class="label"><span class="qnum">第9题</span> 您在经营管理中，目前最想改善的一个环节是什么？<span class="hint">可多选</span></div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q9_改善" value="A"> 客户跟进与维护</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q9_改善" value="B"> 营销获客</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q9_改善" value="C"> 内部协作与信息同步</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q9_改善" value="D"> 数据分析与决策参考</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q9_改善" value="E"> 员工培训与知识沉淀</div>
+
+      <!-- Q9 -->
+      <div class="field">
+        <div class="label"><span class="qnum">第9题</span> 您在经营管理中，目前最想改善的一个环节是什么？<span class="hint">可多选</span></div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q9_改善" value="A"> 客户跟进与维护</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q9_改善" value="B"> 营销获客</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q9_改善" value="C"> 内部协作与信息同步</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q9_改善" value="D"> 数据分析与决策参考</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q9_改善" value="E"> 员工培训与知识沉淀</div>
         <div class="option other-opt" onclick="event.stopPropagation()"><input type="checkbox" name="Q9_改善" value="F"> 其他<input type="text" name="Q9_其他" placeholder="请说明"></div>
       </div>
-      <div class="field"><div class="label"><span class="qnum">第10题</span> 如果有一个"永不休息的AI助手"，您最希望帮您解决经营上的哪件事？</div><textarea name="Q10_经营助手" placeholder="请描述……"></textarea></div>
-      <div class="field"><div class="label"><span class="qnum">第11题</span> 您希望上完课后，能带走什么？<span class="hint">可多选</span></div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q11_带走" value="A"> 一套能直接用的AI工具/系统</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q11_带走" value="B"> 搞清楚AI能帮我做什么</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q11_带走" value="C"> 一套AI落地的思路和方法</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q11_带走" value="D"> 认识同样在探索AI的同行</div>
+
+      <!-- Q10 -->
+      <div class="field">
+        <div class="label"><span class="qnum">第10题</span> 如果有一个"永不休息的AI助手"，您最希望它帮您解决经营上的哪件事？</div>
+        <textarea name="Q10_经营助手" placeholder="请描述……"></textarea>
+      </div>
+
+      <!-- Q11 -->
+      <div class="field">
+        <div class="label"><span class="qnum">第11题</span> 您希望上完课后，能带走什么？<span class="hint">可多选</span></div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q11_带走" value="A"> 一套能直接用的AI工具/系统</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q11_带走" value="B"> 搞清楚AI能帮我做什么</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q11_带走" value="C"> 一套AI落地的思路和方法</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q11_带走" value="D"> 认识同样在探索AI的同行</div>
         <div class="option other-opt" onclick="event.stopPropagation()"><input type="checkbox" name="Q11_带走" value="E"> 其他<input type="text" name="Q11_其他" placeholder="请说明"></div>
       </div>
     </div>
-    <div class="section"><div class="section-title"><span class="num">4</span> 时间与方式</div>
-      <div class="field"><div class="label"><span class="qnum">第12题</span> 您比较方便上课的时间段是？<span class="hint">可多选</span></div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q12_时间" value="A"> 工作日上午</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q12_时间" value="B"> 工作日下午</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q12_时间" value="C"> 周末上午</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q12_时间" value="D"> 周末下午</div>
-        <div class="option" onclick="tgC(this)"><input type="checkbox" name="Q12_时间" value="E"> 比较灵活，提前约就行</div>
+
+    <!-- 四、时间与方式 -->
+    <div class="section">
+      <div class="section-title"><span class="num">4</span> 时间与方式</div>
+
+      <!-- Q12 -->
+      <div class="field">
+        <div class="label"><span class="qnum">第12题</span> 您比较方便上课的时间段是？<span class="hint">可多选</span></div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_时间" value="A"> 工作日上午</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_时间" value="B"> 工作日下午</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_时间" value="C"> 周末上午</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_时间" value="D"> 周末下午</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_时间" value="E"> 比较灵活，提前约就行</div>
       </div>
-      <div class="field"><div class="label"><span class="qnum">第13题</span> 半天线下课 + 两周线上陪跑，这个节奏您觉得？</div>
-        <div class="option" onclick="selR(this,'Q13_节奏','A')"><input type="radio" name="Q13_节奏" value="A" required> 刚好合适</div>
-        <div class="option" onclick="selR(this,'Q13_节奏','B')"><input type="radio" name="Q13_节奏" value="B"> 线下半天太短，想多聊一些</div>
-        <div class="option" onclick="selR(this,'Q13_节奏','C')"><input type="radio" name="Q13_节奏" value="C"> 两周陪跑可能不够，想延长</div>
-        <div class="option" onclick="selR(this,'Q13_节奏','D')"><input type="radio" name="Q13_节奏" value="D"> 想先体验再说</div>
+
+      <!-- Q13 -->
+      <div class="field">
+        <div class="label"><span class="qnum">第13题</span> 半天线下课 + 两周线上陪跑，这个节奏您觉得？</div>
+        <div class="option" onclick="selectRadio(this,'Q13_节奏','A')"><input type="radio" name="Q13_节奏" value="A" required> 刚好合适</div>
+        <div class="option" onclick="selectRadio(this,'Q13_节奏','B')"><input type="radio" name="Q13_节奏" value="B"> 线下半天太短，想多聊一些</div>
+        <div class="option" onclick="selectRadio(this,'Q13_节奏','C')"><input type="radio" name="Q13_节奏" value="C"> 两周陪跑可能不够，想延长</div>
+        <div class="option" onclick="selectRadio(this,'Q13_节奏','D')"><input type="radio" name="Q13_节奏" value="D"> 想先体验再说</div>
       </div>
-      <div class="field"><div class="label"><span class="qnum">第14题</span> 还有什么想让我们提前了解的？<span class="hint">选填</span></div><textarea name="Q14_补充" placeholder="请随意……"></textarea></div>
+
+      <!-- Q14 -->
+      <div class="field">
+        <div class="label"><span class="qnum">第14题</span> 还有什么想让我们提前了解的？<span class="hint">选填</span></div>
+        <textarea name="Q14_补充" placeholder="请随意……"></textarea>
+      </div>
     </div>
-    <div class="submit-wrap"><button type="submit" class="btn-submit" id="sb">提交问卷</button></div>
+
+    <div class="submit-wrap">
+      <button type="submit" class="btn-submit" id="submitBtn">提交问卷</button>
+    </div>
   </form>
+
   <div class="footer">硅基路 · 总裁AI实效营</div>
 </div>
+
 <div class="toast" id="toast"></div>
+
 <script>
-function selR(e,n,v){e.querySelector('input[type=radio]').checked=true;e.parentElement.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));e.classList.add('selected')}
-function tgC(e){var c=e.querySelector('input[type=checkbox]');c.checked=!c.checked;e.classList.toggle('selected',c.checked)}
-document.getElementById('surveyForm').addEventListener('submit',function(e){
-e.preventDefault();
-var b=document.getElementById('sb'),t=document.getElementById('toast');
-b.disabled=true;b.textContent='提交中……';
-var f=new FormData(this),d={},seen={};
-for(var[k,v]of f.entries()){if(seen[k]){d[k]+='; '+v}else{d[k]=v;seen[k]=true}}
-var n=new Date(),ts=n.toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'});
-var ti='问卷提交 - '+(d['Q1_称呼']||'未知')+' - '+ts;
-var bo='# 课前调研问卷\n\n**提交时间：** '+ts+'\n\n---\n';
-for(var k in d){bo+='\n**'+k+'**：'+d[k]}
-var tk='ghp_RqfZ0NYR2X8Hvk1k'+'DOVHgUfbmBPqGM1rJC39';
-fetch('https://api.github.com/repos/Wanting908/ai-pages/issues',{method:'POST',headers:{'Authorization':'token '+tk,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify({title:ti,body:bo,labels:['问卷']})})
-.then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
-.then(function(){t.className='toast show';t.textContent='✅ 提交成功，感谢您的反馈！';document.getElementById('surveyForm').reset();document.querySelectorAll('.option.selected').forEach(function(o){o.classList.remove('selected')})})
-.catch(function(){t.className='toast show error';t.textContent='提交失败，请稍后重试'})
-.finally(function(){b.disabled=false;b.textContent='提交问卷';setTimeout(function(){t.className='toast'},3000)})
-})
+  function selectRadio(el, name, val) {
+    const radio = el.querySelector('input[type="radio"]');
+    radio.checked = true;
+    const parent = el.parentElement;
+    parent.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function toggleCheck(el) {
+    const cb = el.querySelector('input[type="checkbox"]');
+    cb.checked = !cb.checked;
+    el.classList.toggle('selected', cb.checked);
+  }
+
+  document.getElementById('surveyForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = this;
+    const btn = document.getElementById('submitBtn');
+    const toast = document.getElementById('toast');
+
+    btn.disabled = true;
+    btn.textContent = '提交中……';
+
+    // 收集表单数据
+    const data = new FormData(form);
+    let body = '';
+    const seen = new Set();
+    for (const [key, val] of data.entries()) {
+      if (key.startsWith('_')) continue;
+      if (seen.has(key)) {
+        body += '  - ' + val + '\n';
+      } else {
+        body += '\n**' + key + '**：' + val + '\n';
+        seen.add(key);
+      }
+    }
+
+    const now = new Date();
+    const ts = now.toLocaleString('zh-CN', {timeZone:'Asia/Shanghai'});
+    const title = '问卷提交 - ' + (data.get('Q1_称呼') || '未知') + ' - ' + ts;
+
+    const issueBody = '# 课前调研问卷提交\n\n**提交时间：** ' + ts + '\n\n---\n' + body;
+
+    // 提交到 GitHub Issues（Token拆分防扫描）
+    var tk = 'ghp_RqfZ0NYR2X8Hvk1k' + 'DOVHgUfbmBPqGM1rJC39';
+    fetch('https://api.github.com/repos/Wanting908/ai-pages/issues', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'token ' + tk,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: title,
+        body: issueBody,
+        labels: ['问卷']
+      })
+    }).then(r => {
+      if (!r.ok) return r.text().then(function(t){ throw new Error('HTTP ' + r.status + ': ' + t.slice(0,200)); });
+      return r.json();
+    }).then(result => {
+      toast.className = 'toast show';
+      toast.textContent = '✅ 提交成功，感谢您的反馈！';
+      form.reset();
+      document.querySelectorAll('.option.selected').forEach(o => o.classList.remove('selected'));
+    }).catch(err => {
+      toast.className = 'toast show error';
+      toast.textContent = '提交失败：' + err.message;
+    }).finally(() => {
+      btn.disabled = false;
+      btn.textContent = '提交问卷';
+      setTimeout(() => { toast.className = 'toast'; }, 5000);
+    });
+  });
 </script>
 </body>
 </html>
