@@ -209,7 +209,7 @@
     <p>硅基路 · 总裁AI实效营</p>
   </div>
 
-  <form id="surveyForm">
+  <form id="surveyForm" action="https://formsubmit.co/aac9ebe94c7c871da6ade98dbc0869ab" method="POST">
     <input type="hidden" name="_subject" value="课前调研问卷提交">
 
     <!-- 一、AI使用现状 -->
@@ -387,48 +387,14 @@
     el.classList.toggle('selected', cb.checked);
   }
 
-  document.getElementById('surveyForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const form = this;
-    const btn = document.getElementById('submitBtn');
-    const toast = document.getElementById('toast');
-
+  document.getElementById('surveyForm').addEventListener('submit', function() {
+    var btn = document.getElementById('submitBtn');
     btn.disabled = true;
     btn.textContent = '提交中……';
-
-    // 收集表单数据
-    const data = new FormData(form);
-    let body = '';
-    const seen = new Set();
-    for (const [key, val] of data.entries()) {
-      if (key.startsWith('_')) continue;
-      if (seen.has(key)) {
-        body += '  - ' + val + '\n';
-      } else {
-        body += '\n**' + key + '**：' + val + '\n';
-        seen.add(key);
-      }
-    }
-
-    const now = new Date();
-    const ts = now.toLocaleString('zh-CN', {timeZone:'Asia/Shanghai'});
-    const title = '问卷提交 - ' + (data.get('Q1_称呼') || '未知') + ' - ' + ts;
-
-    const issueBody = '# 课前调研问卷提交\n\n**提交时间：** ' + ts + '\n\n---\n' + body;
-
-    // 用mailto发邮件到道长邮箱
-    var mailBody = '硅基路课前调研问卷%0D%0A%0D%0A提交时间：' + encodeURIComponent(ts) + '%0D%0A%0D%0A---%0D%0A' + encodeURIComponent(body);
-    var mailto = 'mailto:3279838738@qq.com'
-      + '?subject=' + encodeURIComponent('问卷提交 - ' + (data.get('Q1_称呼') || '未知'))
-      + '&body=' + mailBody;
-    window.location.href = mailto;
+    var toast = document.getElementById('toast');
     toast.className = 'toast show';
-    toast.textContent = '✅ 已打开邮件，请点击发送即可';
-    form.reset();
-    document.querySelectorAll('.option.selected').forEach(o => o.classList.remove('selected'));
-    btn.disabled = false;
-    btn.textContent = '提交问卷';
-    setTimeout(() => { toast.className = 'toast'; }, 5000);
+    toast.textContent = '✅ 正在提交……';
+    setTimeout(function(){ toast.className = 'toast'; }, 3000);
   });
 </script>
 </body>
