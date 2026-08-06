@@ -386,17 +386,6 @@
     el.classList.toggle('selected', cb.checked);
   }
 
-  document.querySelectorAll('.option').forEach(opt => {
-    opt.addEventListener('click', function(e) {
-      if (e.target.tagName === 'INPUT' && e.target.type === 'text') return;
-      if (this.querySelector('input[type="radio"]')) {
-        selectRadio(this);
-      } else if (this.querySelector('input[type="checkbox"]') && !this.classList.contains('other-opt')) {
-        toggleCheck(this);
-      }
-    });
-  });
-
   document.getElementById('surveyForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const form = this;
