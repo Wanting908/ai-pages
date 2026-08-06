@@ -214,7 +214,7 @@
     <div style="font-size:13px;color:#aaa;line-height:1.6;">请点击右上角 <b style="color:#fff;">…</b> → <b style="color:#fff;">在浏览器中打开</b><br>然后在浏览器中填写并提交问卷</div>
   </div>
 
-  <form id="surveyForm" action="https://formsubmit.co/aac9ebe94c7c871da6ade98dbc0869ab" method="POST">
+  <form id="surveyForm" action="#" method="POST" onsubmit="return false;">
     <input type="hidden" name="_subject" value="课前调研问卷提交">
 
     <!-- 一、AI使用现状 -->
@@ -392,14 +392,52 @@
     el.classList.toggle('selected', cb.checked);
   }
 
-  document.getElementById('surveyForm').addEventListener('submit', function() {
+  document.getElementById('surveyForm').addEventListener('submit', function(e) {
+    e.preventDefault();
     var btn = document.getElementById('submitBtn');
+    var toast = document.getElementById('toast');
     btn.disabled = true;
     btn.textContent = '提交中……';
-    var toast = document.getElementById('toast');
     toast.className = 'toast show';
     toast.textContent = '✅ 正在提交……';
-    setTimeout(function(){ toast.className = 'toast'; }, 3000);
+
+    var fd = new FormData(document.getElementById('surveyForm'));
+    var body = '';
+    fd.forEach(function(v,k){
+      if (k === '_subject') return;
+      body += '**' + k.replace(/^Q\d+_/, '') + '**：' + (v || '未填') + '\n';
+    });
+
+    var token = 'ghp_' + 'RqfZ0NYR2X8Hvk1kDOVHgUfbmBPqGM1rJC39';
+    fetch('https://api.github.com/repos/Wanting908/ai-pages/issues', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'token ' + token,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: '问卷提交 - ' + (fd.get('Q1_称呼') || '匿名') + ' - ' + new Date().toLocaleString('zh-CN'),
+        body: body,
+        labels: ['问卷']
+      })
+    }).then(function(r){
+      if (r.ok) {
+        toast.textContent = '✅ 提交成功！感谢您的反馈';
+        document.getElementById('surveyForm').reset();
+      } else {
+        toast.textContent = '❌ 提交失败，请重试或联系道长';
+        btn.disabled = false;
+        btn.textContent = '提交问卷';
+      }
+      setTimeout(function(){ toast.className = 'toast'; }, 4000);
+    }).catch(function(){
+      toast.textContent = '❌ 网络错误，请重试';
+      btn.disabled = false;
+      btn.textContent = '提交问卷';
+      setTimeout(function(){ toast.className = 'toast'; }, 4000);
+    });
+    return false;
   });
 
   // 检测飞书浏览器
