@@ -416,36 +416,19 @@
 
     const issueBody = '# 课前调研问卷提交\n\n**提交时间：** ' + ts + '\n\n---\n' + body;
 
-    // 提交到 GitHub Issues（Token拆分防扫描）
-    var tk = 'ghp_RqfZ0NYR2X8Hvk1k' + 'DOVHgUfbmBPqGM1rJC39';
-    fetch('https://api.github.com/repos/Wanting908/ai-pages/issues', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'token ' + tk,
-        'Accept': 'application/vnd.github.v3+json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        title: title,
-        body: issueBody,
-        labels: ['问卷']
-      })
-    }).then(r => {
-      if (!r.ok) return r.text().then(function(t){ throw new Error('HTTP ' + r.status + ': ' + t.slice(0,200)); });
-      return r.json();
-    }).then(result => {
-      toast.className = 'toast show';
-      toast.textContent = '✅ 提交成功，感谢您的反馈！';
-      form.reset();
-      document.querySelectorAll('.option.selected').forEach(o => o.classList.remove('selected'));
-    }).catch(err => {
-      toast.className = 'toast show error';
-      toast.textContent = '提交失败：' + err.message;
-    }).finally(() => {
-      btn.disabled = false;
-      btn.textContent = '提交问卷';
-      setTimeout(() => { toast.className = 'toast'; }, 5000);
-    });
+    // 直接跳转GitHub新issue页面（预填内容，用户点Create即可）
+    var url = 'https://github.com/Wanting908/ai-pages/issues/new'
+      + '?title=' + encodeURIComponent(title)
+      + '&body=' + encodeURIComponent(issueBody)
+      + '&labels=问卷';
+    window.open(url, '_blank');
+    toast.className = 'toast show';
+    toast.textContent = '✅ 已打开提交页面，请点击 Submit new issue 完成提交';
+    form.reset();
+    document.querySelectorAll('.option.selected').forEach(o => o.classList.remove('selected'));
+    btn.disabled = false;
+    btn.textContent = '提交问卷';
+    setTimeout(() => { toast.className = 'toast'; }, 5000);
   });
 </script>
 </body>
