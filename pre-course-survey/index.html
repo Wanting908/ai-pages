@@ -209,6 +209,11 @@
     <p>硅基路 · 总裁AI实效营</p>
   </div>
 
+  <div id="feishuNotice" style="display:none;background:rgba(255,152,0,0.15);border:1px solid rgba(255,152,0,0.3);border-radius:10px;padding:14px 16px;margin-bottom:16px;text-align:center;">
+    <div style="font-size:15px;color:#ffb74d;margin-bottom:6px;">⚠️ 检测到您正在飞书内打开</div>
+    <div style="font-size:13px;color:#aaa;line-height:1.6;">请点击右上角 <b style="color:#fff;">…</b> → <b style="color:#fff;">在浏览器中打开</b><br>然后在浏览器中填写并提交问卷</div>
+  </div>
+
   <form id="surveyForm" action="https://formsubmit.co/aac9ebe94c7c871da6ade98dbc0869ab" method="POST">
     <input type="hidden" name="_subject" value="课前调研问卷提交">
 
@@ -396,6 +401,14 @@
     toast.textContent = '✅ 正在提交……';
     setTimeout(function(){ toast.className = 'toast'; }, 3000);
   });
+
+  // 检测飞书浏览器
+  (function() {
+    var ua = navigator.userAgent || '';
+    if (/Lark|Feishu/i.test(ua)) {
+      document.getElementById('feishuNotice').style.display = 'block';
+    }
+  })();
 </script>
 </body>
 </html>
