@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>课前调研问卷 · 硅基路</title>
+<title>AI赋能培训需求调研 · 硅基路</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    background: #f7f5f0;
     min-height: 100vh;
-    color: #e0e0e0;
-    padding: 20px 16px;
+    color: #3a332c;
+    padding: 20px 16px 40px;
   }
   .container {
     max-width: 640px;
@@ -19,37 +19,55 @@
   }
   .header {
     text-align: center;
-    padding: 32px 0 24px;
+    padding: 28px 0 20px;
+    background: linear-gradient(160deg, #5b3a1e 0%, #7a4f2a 55%, #9a6b3a 100%);
+    border-radius: 18px;
+    margin-bottom: 18px;
+    padding: 30px 20px;
   }
-  .header .icon {
-    font-size: 40px;
-    margin-bottom: 12px;
+  .header .brand {
+    font-size: 13px;
+    color: #e8d5b5;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
   }
   .header h1 {
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 700;
     color: #ffffff;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     letter-spacing: 1px;
   }
   .header p {
     font-size: 13px;
-    color: #8899aa;
+    color: #e0c8a8;
+    line-height: 1.6;
   }
+  .intro {
+    background: #fff;
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 10px rgba(91,58,30,0.06);
+    font-size: 14px;
+    line-height: 1.7;
+    color: #6b5c4b;
+  }
+  .intro b { color: #7a4f2a; }
   .section {
-    background: rgba(255,255,255,0.06);
+    background: #fff;
     border-radius: 14px;
     padding: 20px;
     margin-bottom: 16px;
-    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 2px 10px rgba(91,58,30,0.06);
   }
   .section-title {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 700;
-    color: #64b5f6;
-    margin-bottom: 16px;
+    color: #5b3a1e;
+    margin-bottom: 14px;
     padding-bottom: 10px;
-    border-bottom: 1px solid rgba(100,181,246,0.15);
+    border-bottom: 1px solid #efe6d8;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -58,357 +76,383 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
-    background: rgba(100,181,246,0.2);
+    width: 24px; height: 24px;
+    background: #7a4f2a;
+    color: #fff;
     border-radius: 50%;
-    font-size: 12px;
-    color: #64b5f6;
-  }
-  .field {
-    margin-bottom: 18px;
-  }
-  .field:last-child { margin-bottom: 0; }
-  .label {
-    font-size: 16px;
-    color: #d0d0d0;
-    margin-bottom: 10px;
-    line-height: 1.6;
-  }
-  .label .qnum {
-    display: inline-block;
-    background: rgba(100,181,246,0.15);
-    color: #64b5f6;
     font-size: 13px;
-    padding: 3px 8px;
-    border-radius: 10px;
-    margin-right: 6px;
     font-weight: 600;
+    flex-shrink: 0;
   }
-  .label .hint {
-    font-size: 13px;
-    color: #667788;
-    margin-left: 4px;
+  .question {
+    margin-bottom: 20px;
+  }
+  .question:last-child { margin-bottom: 0; }
+  .q-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #4a4036;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+  .q-label .req { color: #c0392b; }
+  .q-label .hint {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 400;
+    color: #a08d77;
+    background: #f4ede2;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 6px;
+    vertical-align: middle;
   }
   .option {
     display: flex;
     align-items: flex-start;
-    padding: 11px 14px;
+    gap: 10px;
+    padding: 11px 12px;
     margin-bottom: 8px;
-    background: rgba(255,255,255,0.03);
-    border-radius: 8px;
+    background: #faf7f2;
+    border: 1px solid #ece3d5;
+    border-radius: 10px;
     cursor: pointer;
-    transition: background 0.15s;
-    font-size: 15px;
-    color: #c0c0c0;
-    line-height: 1.6;
+    transition: all 0.15s;
+    font-size: 14px;
+    line-height: 1.5;
   }
-  .option:hover { background: rgba(255,255,255,0.06); }
-  .option.selected { background: rgba(100,181,246,0.12); color: #e0e0e0; }
-  .option input[type="radio"],
-  .option input[type="checkbox"] {
-    margin-right: 10px;
+  .option:last-child { margin-bottom: 0; }
+  .option.selected {
+    background: #f0e6d4;
+    border-color: #9a6b3a;
+  }
+  .option input {
     margin-top: 2px;
-    accent-color: #64b5f6;
+    accent-color: #7a4f2a;
     flex-shrink: 0;
-    width: 16px;
-    height: 16px;
-  }
-  .option.other-opt {
-    align-items: center;
   }
   .option.other-opt input[type="text"] {
     flex: 1;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 6px;
-    padding: 7px 10px;
-    color: #e0e0e0;
-    font-size: 13px;
-    margin-left: 6px;
+    border: none;
+    background: transparent;
+    border-bottom: 1px dashed #c4b49c;
+    font-size: 14px;
+    color: #3a332c;
+    padding: 2px 4px;
     outline: none;
-    transition: border-color 0.2s;
+    min-width: 60px;
   }
-  .option.other-opt input[type="text"]:focus {
-    border-color: #64b5f6;
-  }
-  textarea, input[type="text"].fill {
+  .option.other-opt input[type="text"]::placeholder { color: #b8a68e; }
+  .fill {
     width: 100%;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 8px;
     padding: 12px 14px;
-    color: #e0e0e0;
+    border: 1px solid #e0d5c2;
+    border-radius: 10px;
     font-size: 15px;
+    background: #faf7f2;
+    color: #3a332c;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .fill:focus { border-color: #7a4f2a; }
+  .fill::placeholder { color: #b8a68e; }
+  .textarea {
+    width: 100%;
+    min-height: 90px;
+    padding: 12px 14px;
+    border: 1px solid #e0d5c2;
+    border-radius: 10px;
+    font-size: 15px;
+    background: #faf7f2;
+    color: #3a332c;
     outline: none;
     resize: vertical;
     font-family: inherit;
-    transition: border-color 0.2s;
+    line-height: 1.6;
   }
-  textarea:focus, input[type="text"].fill:focus {
-    border-color: #64b5f6;
-  }
-  textarea { min-height: 60px; }
+  .textarea:focus { border-color: #7a4f2a; }
+  .textarea::placeholder { color: #b8a68e; }
   .submit-wrap {
     text-align: center;
-    padding: 24px 0 40px;
+    margin-top: 8px;
   }
   .btn-submit {
     width: 100%;
-    max-width: 320px;
-    padding: 14px 0;
-    background: linear-gradient(135deg, #1565c0, #0d47a1);
+    padding: 15px;
+    background: linear-gradient(160deg, #5b3a1e 0%, #7a4f2a 100%);
+    color: #fff;
     border: none;
     border-radius: 12px;
-    color: #fff;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 600;
+    letter-spacing: 2px;
     cursor: pointer;
-    letter-spacing: 1px;
     transition: transform 0.15s, box-shadow 0.15s;
-    box-shadow: 0 4px 20px rgba(21,101,192,0.3);
+    box-shadow: 0 4px 14px rgba(91,58,30,0.3);
   }
-  .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(21,101,192,0.4); }
+  .btn-submit:hover { transform: translateY(-1px); }
   .btn-submit:active { transform: scale(0.98); }
   .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
   .toast {
     position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #1b5e20;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%) scale(0.9);
+    background: rgba(0,0,0,0.85);
     color: #fff;
-    padding: 12px 24px;
-    border-radius: 10px;
-    font-size: 14px;
-    z-index: 999;
-    display: none;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-  }
-  .toast.show { display: block; animation: fadeInOut 3s ease; }
-  .toast.error { background: #b71c1c; }
-  @keyframes fadeInOut {
-    0% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
-    10% { opacity: 1; transform: translateX(-50%) translateY(0); }
-    80% { opacity: 1; }
-    100% { opacity: 0; }
-  }
-  .footer {
+    padding: 18px 28px;
+    border-radius: 12px;
+    font-size: 15px;
     text-align: center;
-    font-size: 11px;
-    color: #556677;
-    padding: 0 0 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s;
+    z-index: 100;
+    max-width: 80%;
+    line-height: 1.6;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+  .tip {
+    text-align: center;
+    font-size: 12px;
+    color: #a08d77;
+    margin-top: 14px;
   }
 </style>
 </head>
 <body>
 <div class="container">
+
   <div class="header">
-    <div class="icon">🔮</div>
-    <h1>课前调研问卷</h1>
-    <p>硅基路 · 总裁AI实效营</p>
+    <div class="brand">SILIRIDE · 硅基路</div>
+    <h1>AI赋能培训需求调研</h1>
+    <p>宁夏贺兰山东麓产区 · 2026年9月</p>
   </div>
 
-  <div id="feishuNotice" style="display:none;background:rgba(255,152,0,0.15);border:1px solid rgba(255,152,0,0.3);border-radius:10px;padding:14px 16px;margin-bottom:16px;text-align:center;">
-    <div style="font-size:15px;color:#ffb74d;margin-bottom:6px;">⚠️ 检测到您正在飞书内打开</div>
-    <div style="font-size:13px;color:#aaa;line-height:1.6;">请点击右上角 <b style="color:#fff;">…</b> → <b style="color:#fff;">在浏览器中打开</b><br>然后在浏览器中填写并提交问卷</div>
+  <div class="intro">
+    尊敬的<b>庄主/管理人员</b>：<br>
+    我们计划在 <b>2026年9月</b> 组织一场面向产区庄主及管理人员的 AI 实战培训。为让培训内容更贴合您的真实需求，特邀请您花 <b>2分钟</b> 填写此问卷。结果仅用于课程设计参考，感谢您的支持！
   </div>
 
   <form id="surveyForm" action="https://formsubmit.co/wanting908@sina.com" method="POST">
-    <input type="hidden" name="_subject" value="课前调研问卷提交">
+    <input type="hidden" name="_subject" value="AI赋能培训需求调研提交">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
 
-    <!-- 一、AI使用现状 -->
+    <!-- 一、基本信息 -->
     <div class="section">
-      <div class="section-title"><span class="num">1</span> AI使用现状</div>
+      <div class="section-title"><span class="num">1</span>基本信息</div>
 
-      <!-- Q1 -->
-      <div class="field">
-        <div class="label"><span class="qnum">第1题</span> 怎么称呼您？</div>
-        <input type="text" name="Q1_称呼" class="fill" placeholder="请输入您的称呼" required>
+      <div class="question">
+        <div class="q-label">1. 您的姓名 <span class="req">*</span></div>
+        <input type="text" name="Q1_姓名" class="fill" placeholder="请输入您的姓名" required>
       </div>
 
-      <!-- Q2 -->
-      <div class="field">
-        <div class="label"><span class="qnum">第2题</span> 您目前接触AI的程度大概是？</div>
-        <div class="option" onclick="selectRadio(this,'Q2_接触程度','A')"><input type="radio" name="Q2_接触程度" value="A" required> 几乎没用过</div>
-        <div class="option" onclick="selectRadio(this,'Q2_接触程度','B')"><input type="radio" name="Q2_接触程度" value="B"> 偶尔用豆包/DeepSeek/文心一言这类聊天工具</div>
-        <div class="option" onclick="selectRadio(this,'Q2_接触程度','C')"><input type="radio" name="Q2_接触程度" value="C"> 经常用AI处理一些事情</div>
-        <div class="option" onclick="selectRadio(this,'Q2_接触程度','D')"><input type="radio" name="Q2_接触程度" value="D"> 已经比较熟练，日常离不开</div>
-        <div class="option other-opt" onclick="selectRadio(this,'Q2_接触程度','E')"><input type="radio" name="Q2_接触程度" value="E"> 其他<input type="text" name="Q2_其他" placeholder="请说明" onclick="event.stopPropagation()"></div>
+      <div class="question">
+        <div class="q-label">2. 您所在的酒庄/企业名称 <span class="req">*</span></div>
+        <input type="text" name="Q2_酒庄名称" class="fill" placeholder="请输入酒庄/企业名称" required>
       </div>
 
-      <!-- Q3 -->
-      <div class="field">
-        <div class="label"><span class="qnum">第3题</span> 您用过AI做哪些事？<span class="hint">可多选</span></div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q3_用过" value="A"> 聊天问答</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q3_用过" value="B"> 写文案/写方案</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q3_用过" value="C"> 做PPT/做图</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q3_用过" value="D"> 整理资料/做总结</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q3_用过" value="E"> 数据分析</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q3_用过" value="F"> 让AI自动监控竞品/行业动态</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q3_用过" value="G"> 搭建过自己的AI工作流（让AI自动跑流程）</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q3_用过" value="H"> 用AI做过客户分析或销售预测</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q3_用过" value="I"> 还没用过</div>
-        <div class="option other-opt" onclick="event.stopPropagation()"><input type="checkbox" name="Q3_用过" value="J"> 其他<input type="text" name="Q3_其他" placeholder="请说明"></div>
-      </div>
-
-      <!-- Q4 -->
-      <div class="field">
-        <div class="label"><span class="qnum">第4题</span> 以下哪些AI能力，您听了觉得好奇、想试试？<span class="hint">可多选</span></div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q4_好奇" value="A"> 同时部署几十个AI助手，自动分工协作</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q4_好奇" value="B"> 让AI自动盯竞品价格、行业新闻，有风吹草动第一时间通知</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q4_好奇" value="C"> 输入客户信息，AI自动分析谁该跟进了、该说什么话</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q4_好奇" value="D"> 把公司内部的文件、经验、流程全喂给AI，新人来了直接问AI</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q4_好奇" value="E"> 让AI自动生成周报、月报，省掉写总结的时间</div>
-        <div class="option other-opt" onclick="event.stopPropagation()"><input type="checkbox" name="Q4_好奇" value="F"> 其他<input type="text" name="Q4_其他" placeholder="请说明"></div>
+      <div class="question">
+        <div class="q-label">3. 您在企业中的角色 <span class="req">*</span></div>
+        <div class="option" onclick="selectRadio(this,'Q3_角色','庄主/创始人')"><input type="radio" name="Q3_角色" value="庄主/创始人" required> 庄主/创始人</div>
+        <div class="option" onclick="selectRadio(this,'Q3_角色','高管/管理层')"><input type="radio" name="Q3_角色" value="高管/管理层"> 高管/管理层</div>
+        <div class="option" onclick="selectRadio(this,'Q3_角色','市场/营销负责人')"><input type="radio" name="Q3_角色" value="市场/营销负责人"> 市场/营销负责人</div>
+        <div class="option" onclick="selectRadio(this,'Q3_角色','销售负责人')"><input type="radio" name="Q3_角色" value="销售负责人"> 销售负责人</div>
+        <div class="option other-opt" onclick="event.stopPropagation()"><input type="radio" name="Q3_角色" value="其他"> 其他 <input type="text" name="Q3_其他" placeholder="请说明"></div>
       </div>
     </div>
 
-    <!-- 二、个人对AI的诉求 -->
+    <!-- 二、AI认知摸底 -->
     <div class="section">
-      <div class="section-title"><span class="num">2</span> 个人对AI的诉求</div>
+      <div class="section-title"><span class="num">2</span>AI认知摸底</div>
 
-      <!-- Q5 -->
-      <div class="field">
-        <div class="label"><span class="qnum">第5题</span> 对您个人而言，最希望AI帮您做什么？<span class="hint">可多选</span></div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q5_个人诉求" value="A"> 写东西（发言稿、朋友圈、方案）</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q5_个人诉求" value="B"> 快速了解一个新领域</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q5_个人诉求" value="C"> 整理信息，抓住重点</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q5_个人诉求" value="D"> 做个"随时能聊"的顾问</div>
-        <div class="option other-opt" onclick="event.stopPropagation()"><input type="checkbox" name="Q5_个人诉求" value="E"> 其他<input type="text" name="Q5_其他" placeholder="请说明"></div>
+      <div class="question">
+        <div class="q-label">4. 您目前对 AI 工具的了解程度 <span class="req">*</span></div>
+        <div class="option" onclick="selectRadio(this,'Q4_了解程度','完全没接触过')"><input type="radio" name="Q4_了解程度" value="完全没接触过，不太知道能做什么" required> 完全没接触过，不太知道能做什么</div>
+        <div class="option" onclick="selectRadio(this,'Q4_了解程度','听过没用过')"><input type="radio" name="Q4_了解程度" value="听过一些，但没有实际用过"> 听过一些，但没有实际用过</div>
+        <div class="option" onclick="selectRadio(this,'Q4_了解程度','简单试用过')"><input type="radio" name="Q4_了解程度" value="简单试用过（如ChatGPT、文心一言、通义千问等）"> 简单试用过（如 ChatGPT、文心一言、通义千问等）</div>
+        <div class="option" onclick="selectRadio(this,'Q4_了解程度','工作中已使用')"><input type="radio" name="Q4_了解程度" value="已在工作中使用一些AI工具"> 已在工作中使用一些 AI 工具</div>
       </div>
 
-      <!-- Q6 -->
-      <div class="field">
-        <div class="label"><span class="qnum">第6题</span> 如果有一个"永不休息的AI助手"，您最希望它在生活中帮您做哪件事？</div>
-        <textarea name="Q6_生活助手" placeholder="请描述……"></textarea>
-      </div>
-
-      <!-- Q7 -->
-      <div class="field">
-        <div class="label"><span class="qnum">第7题</span> 您对AI的期待，更接近哪一种？</div>
-        <div class="option" onclick="selectRadio(this,'Q7_期待','A')"><input type="radio" name="Q7_期待" value="A" required> 先帮我省人省时间</div>
-        <div class="option" onclick="selectRadio(this,'Q7_期待','B')"><input type="radio" name="Q7_期待" value="B"> 帮我做以前做不到的事</div>
-        <div class="option" onclick="selectRadio(this,'Q7_期待','C')"><input type="radio" name="Q7_期待" value="C"> 说不好，先看看别人怎么用的</div>
-        <div class="option other-opt" onclick="selectRadio(this,'Q7_期待','D')"><input type="radio" name="Q7_期待" value="D"> 其他<input type="text" name="Q7_其他" placeholder="请说明" onclick="event.stopPropagation()"></div>
+      <div class="question">
+        <div class="q-label">5. 您或您的团队目前是否使用过以下工具？<span class="hint">可多选</span></div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q5_用过工具" value="AI对话工具"> AI 对话工具（ChatGPT/文心一言/通义千问/豆包等）</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q5_用过工具" value="AI生成图片/视频工具"> AI 生成图片/视频工具</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q5_用过工具" value="AI写作/文案工具"> AI 写作/文案工具</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q5_用过工具" value="低代码/无代码平台"> 低代码/无代码搭建平台</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q5_用过工具" value="都没用过"> 都没有使用过</div>
       </div>
     </div>
 
-    <!-- 三、经营管理上对AI的诉求 -->
+    <!-- 三、痛点与需求 -->
     <div class="section">
-      <div class="section-title"><span class="num">3</span> 经营管理上对AI的诉求</div>
+      <div class="section-title"><span class="num">3</span>痛点与需求</div>
 
-      <!-- Q8 -->
-      <div class="field">
-        <div class="label"><span class="qnum">第8题</span> 您觉得AI和您企业的关系，最接近以下哪种？<span class="hint">可多选</span></div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q8_关系" value="A"> 听说过，但不知道跟我有什么关系</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q8_关系" value="B"> 感觉迟早要用，但不知道从哪入手</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q8_关系" value="C"> 已经在一些环节试过，想看看还能怎么用</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q8_关系" value="D"> 觉得是个机会，想系统地了解一下</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q8_关系" value="E"> 觉得是趋势，但对效果有疑虑</div>
-        <div class="option other-opt" onclick="event.stopPropagation()"><input type="checkbox" name="Q8_关系" value="F"> 其他<input type="text" name="Q8_其他" placeholder="请说明"></div>
+      <div class="question">
+        <div class="q-label">6. 您日常经营中最耗时或最头疼的工作环节是哪些？<span class="hint">最多选3项</span></div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q6_头疼环节" value="客户开发与维护"> 客户开发与维护</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q6_头疼环节" value="营销内容创作"> 营销内容创作（公众号/短视频/海报等）</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q6_头疼环节" value="销售渠道管理"> 销售渠道管理（经销商对接、订单跟踪）</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q6_头疼环节" value="品牌宣传与推广"> 品牌宣传与推广</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q6_头疼环节" value="数据分析"> 数据分析（销售数据、库存、市场趋势）</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q6_头疼环节" value="人事财务等内部管理"> 人事/财务等内部管理</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q6_头疼环节" value="产品包装设计"> 产品包装设计</div>
+        <div class="option other-opt" onclick="event.stopPropagation()"><input type="checkbox" name="Q6_头疼环节" value="其他"> 其他 <input type="text" name="Q6_其他" placeholder="请说明"></div>
       </div>
 
-      <!-- Q9 -->
-      <div class="field">
-        <div class="label"><span class="qnum">第9题</span> 您在经营管理中，目前最想改善的一个环节是什么？<span class="hint">可多选</span></div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q9_改善" value="A"> 客户跟进与维护</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q9_改善" value="B"> 营销获客</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q9_改善" value="C"> 内部协作与信息同步</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q9_改善" value="D"> 数据分析与决策参考</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q9_改善" value="E"> 员工培训与知识沉淀</div>
-        <div class="option other-opt" onclick="event.stopPropagation()"><input type="checkbox" name="Q9_改善" value="F"> 其他<input type="text" name="Q9_其他" placeholder="请说明"></div>
-      </div>
-
-      <!-- Q10 -->
-      <div class="field">
-        <div class="label"><span class="qnum">第10题</span> 如果有一个"永不休息的AI助手"，您最希望它帮您解决经营上的哪件事？</div>
-        <textarea name="Q10_经营助手" placeholder="请描述……"></textarea>
-      </div>
-
-      <!-- Q11 -->
-      <div class="field">
-        <div class="label"><span class="qnum">第11题</span> 您希望上完课后，能带走什么？<span class="hint">可多选</span></div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q11_带走" value="A"> 一套能直接用的AI工具/系统</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q11_带走" value="B"> 搞清楚AI能帮我做什么</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q11_带走" value="C"> 一套AI落地的思路和方法</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q11_带走" value="D"> 认识同样在探索AI的同行</div>
-        <div class="option other-opt" onclick="event.stopPropagation()"><input type="checkbox" name="Q11_带走" value="E"> 其他<input type="text" name="Q11_其他" placeholder="请说明"></div>
+      <div class="question">
+        <div class="q-label">7. 您认为目前企业引入AI技术最大的障碍是 <span class="req">*</span></div>
+        <div class="option" onclick="selectRadio(this,'Q7_最大障碍','人手不够没精力')"><input type="radio" name="Q7_最大障碍" value="人手不够，一人多岗，没精力学习探索" required> 人手不够，一人多岗，没精力学习和探索AI工具</div>
+        <div class="option" onclick="selectRadio(this,'Q7_最大障碍','团队缺乏技能')"><input type="radio" name="Q7_最大障碍" value="团队缺乏AI技能，不知道怎么上手"> 团队缺乏AI技能，不知道怎么上手</div>
+        <div class="option" onclick="selectRadio(this,'Q7_最大障碍','不清楚哪些工具')"><input type="radio" name="Q7_最大障碍" value="不清楚哪些AI工具能解决自己的实际问题"> 不清楚哪些AI工具能解决自己的实际问题</div>
+        <div class="option" onclick="selectRadio(this,'Q7_最大障碍','效果不理想')"><input type="radio" name="Q7_最大障碍" value="试过一些AI工具但效果不理想"> 试过一些AI工具但效果不理想</div>
+        <div class="option other-opt" onclick="event.stopPropagation()"><input type="radio" name="Q7_最大障碍" value="其他"> 其他 <input type="text" name="Q7_其他" placeholder="请说明"></div>
       </div>
     </div>
 
-    <!-- 四、时间与方式 -->
+    <!-- 四、感兴趣的应用场景 -->
     <div class="section">
-      <div class="section-title"><span class="num">4</span> 时间与方式</div>
+      <div class="section-title"><span class="num">4</span>感兴趣的应用场景</div>
 
-      <!-- Q12 -->
-      <div class="field">
-        <div class="label"><span class="qnum">第12题</span> 您比较方便上课的时间段是？<span class="hint">可多选</span></div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_时间" value="A"> 工作日上午</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_时间" value="B"> 工作日下午</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_时间" value="C"> 周末上午</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_时间" value="D"> 周末下午</div>
-        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_时间" value="E"> 比较灵活，提前约就行</div>
+      <div class="question">
+        <div class="q-label">8. 如果AI能帮您解决以下问题，您最希望优先学习哪些？<span class="hint">最多选3项</span></div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q8_优先学习" value="客户管理AI助手"> 搭建客户管理AI助手（自动跟进、客户画像、提醒）</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q8_优先学习" value="自动生成营销内容"> 自动生成营销内容（文案、公众号文章、短视频脚本）</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q8_优先学习" value="产品展示HTML页面"> 制作产品展示HTML页面（酒款介绍、品牌展示页）</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q8_优先学习" value="数据分析与可视化"> 数据分析与可视化（销售报表、趋势分析）</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q8_优先学习" value="微信小程序"> 快速制作微信小程序（产品展示、预约、商城）</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q8_优先学习" value="AI辅助销售话术"> AI辅助销售话术与客户沟通</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q8_优先学习" value="AI生成宣传图视频"> AI生成产品宣传图片/视频</div>
+        <div class="option other-opt" onclick="event.stopPropagation()"><input type="checkbox" name="Q8_优先学习" value="其他"> 其他 <input type="text" name="Q8_其他" placeholder="请说明"></div>
+      </div>
+    </div>
+
+    <!-- 五、培训偏好 -->
+    <div class="section">
+      <div class="section-title"><span class="num">5</span>培训偏好</div>
+
+      <div class="question">
+        <div class="q-label">9. 您更倾向于哪种培训时间安排？ <span class="req">*</span></div>
+        <div class="option" onclick="selectRadio(this,'Q9_时间安排','工作日上午')"><input type="radio" name="Q9_时间安排" value="工作日上午（9:00-12:00）" required> 工作日上午（9:00-12:00）</div>
+        <div class="option" onclick="selectRadio(this,'Q9_时间安排','工作日下午')"><input type="radio" name="Q9_时间安排" value="工作日下午（14:00-17:00）"> 工作日下午（14:00-17:00）</div>
+        <div class="option" onclick="selectRadio(this,'Q9_时间安排','周末')"><input type="radio" name="Q9_时间安排" value="周末（全天或半天）"> 周末（全天或半天）</div>
+        <div class="option" onclick="selectRadio(this,'Q9_时间安排','灵活安排')"><input type="radio" name="Q9_时间安排" value="灵活安排，能参加就行"> 灵活安排，能参加就行</div>
       </div>
 
-      <!-- Q13 -->
-      <div class="field">
-        <div class="label"><span class="qnum">第13题</span> 半天线下课 + 两周线上陪跑，这个节奏您觉得？</div>
-        <div class="option" onclick="selectRadio(this,'Q13_节奏','A')"><input type="radio" name="Q13_节奏" value="A" required> 刚好合适</div>
-        <div class="option" onclick="selectRadio(this,'Q13_节奏','B')"><input type="radio" name="Q13_节奏" value="B"> 线下半天太短，想多聊一些</div>
-        <div class="option" onclick="selectRadio(this,'Q13_节奏','C')"><input type="radio" name="Q13_节奏" value="C"> 两周陪跑可能不够，想延长</div>
-        <div class="option" onclick="selectRadio(this,'Q13_节奏','D')"><input type="radio" name="Q13_节奏" value="D"> 想先体验再说</div>
+      <div class="question">
+        <div class="q-label">10. 您更倾向于哪种培训时长？ <span class="req">*</span></div>
+        <div class="option" onclick="selectRadio(this,'Q10_培训时长','半天集中')"><input type="radio" name="Q10_培训时长" value="半天集中培训（3-4小时）" required> 半天集中培训（3-4小时，一次讲完）</div>
+        <div class="option" onclick="selectRadio(this,'Q10_培训时长','全天集中')"><input type="radio" name="Q10_培训时长" value="全天集中培训（6-7小时）"> 全天集中培训（6-7小时，一天学透）</div>
+        <div class="option" onclick="selectRadio(this,'Q10_培训时长','分次培训')"><input type="radio" name="Q10_培训时长" value="分次培训（每次2-3小时，分2-3次）"> 分次培训（每次2-3小时，分2-3次，便于消化和实操）</div>
       </div>
 
-      <!-- Q14 -->
-      <div class="field">
-        <div class="label"><span class="qnum">第14题</span> 还有什么想让我们提前了解的？<span class="hint">选填</span></div>
-        <textarea name="Q14_补充" placeholder="请随意……"></textarea>
+      <div class="question">
+        <div class="q-label">11. 您更希望培训以什么形式为主？ <span class="req">*</span></div>
+        <div class="option" onclick="selectRadio(this,'Q11_培训形式','线下集中授课')"><input type="radio" name="Q11_培训形式" value="线下集中授课（讲师主讲+演示）" required> 线下集中授课（讲师主讲+演示）</div>
+        <div class="option" onclick="selectRadio(this,'Q11_培训形式','线下工作坊')"><input type="radio" name="Q11_培训形式" value="线下工作坊（带着实际业务边学边练）"> 线下工作坊（带着自己的实际业务边学边练）</div>
+        <div class="option" onclick="selectRadio(this,'Q11_培训形式','线上直播')"><input type="radio" name="Q11_培训形式" value="线上直播（可回看，时间灵活）"> 线上直播（可回看，时间灵活）</div>
+        <div class="option" onclick="selectRadio(this,'Q11_培训形式','录播视频')"><input type="radio" name="Q11_培训形式" value="录播视频（随时学习，进度自由）"> 录播视频（随时学习，进度自由）</div>
+      </div>
+
+      <div class="question">
+        <div class="q-label">12. 培训结束后，您希望获得哪些持续支持？<span class="hint">可多选</span></div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_持续支持" value="产区AI学习交流群"> 建立产区AI学习交流群</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_持续支持" value="定期线上答疑"> 定期线上答疑或进阶课程</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_持续支持" value="操作手册教程文档"> 提供操作手册/教程文档</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_持续支持" value="一对一辅导"> 一对一辅导搭建企业专属AI工具</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_持续支持" value="暂不需要"> 暂不需要</div>
+      </div>
+    </div>
+
+    <!-- 六、参与意向 -->
+    <div class="section">
+      <div class="section-title"><span class="num">6</span>参与意向</div>
+
+      <div class="question">
+        <div class="q-label">13. 如果2026年9月举办此培训，您的参与意愿 <span class="req">*</span></div>
+        <div class="option" onclick="selectRadio(this,'Q13_参与意愿','确定参加')"><input type="radio" name="Q13_参与意愿" value="确定参加" required> 确定参加</div>
+        <div class="option" onclick="selectRadio(this,'Q13_参与意愿','感兴趣尽量参加')"><input type="radio" name="Q13_参与意愿" value="感兴趣，时间确定后尽量参加"> 感兴趣，时间确定后尽量参加</div>
+        <div class="option" onclick="selectRadio(this,'Q13_参与意愿','暂不确定')"><input type="radio" name="Q13_参与意愿" value="暂不确定，但希望了解后续信息"> 暂不确定，但希望了解后续信息</div>
+        <div class="option" onclick="selectRadio(this,'Q13_参与意愿','暂不考虑')"><input type="radio" name="Q13_参与意愿" value="暂不考虑"> 暂不考虑</div>
+      </div>
+
+      <div class="question">
+        <div class="q-label">14. 您对这场培训还有什么期望或建议？<span class="hint">选填</span></div>
+        <textarea name="Q14_期望建议" class="textarea" placeholder="欢迎写下您的想法..."></textarea>
       </div>
     </div>
 
     <div class="submit-wrap">
       <button type="submit" class="btn-submit" id="submitBtn">提交问卷</button>
     </div>
+    <div class="tip">结果仅用于课程设计参考 · 感谢您的参与</div>
   </form>
 
-  <div class="footer">硅基路 · 总裁AI实效营</div>
+  <div class="toast" id="toast"></div>
 </div>
 
-<div class="toast" id="toast"></div>
-
 <script>
-  function selectRadio(el, name, val) {
-    const radio = el.querySelector('input[type="radio"]');
-    radio.checked = true;
-    const parent = el.parentElement;
-    parent.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-    el.classList.add('selected');
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 2500);
+}
+
+function selectRadio(el, name, val) {
+  var radios = document.getElementsByName(name);
+  for (var i = 0; i < radios.length; i++) {
+    radios[i].checked = false;
+    radios[i].closest('.option').classList.remove('selected');
   }
+  var radio = el.querySelector('input[type="radio"]');
+  radio.checked = true;
+  el.classList.add('selected');
+}
 
-  function toggleCheck(el) {
-    const cb = el.querySelector('input[type="checkbox"]');
-    cb.checked = !cb.checked;
-    el.classList.toggle('selected', cb.checked);
-  }
-
-  document.getElementById('surveyForm').addEventListener('submit', function() {
-    var btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.textContent = '提交中……';
-    var toast = document.getElementById('toast');
-    toast.className = 'toast show';
-    toast.textContent = '✅ 正在提交……';
-    setTimeout(function(){ toast.className = 'toast'; }, 3000);
-  });
-
-  // 检测飞书浏览器
-  (function() {
-    var ua = navigator.userAgent || '';
-    if (/Lark|Feishu/i.test(ua)) {
-      document.getElementById('feishuNotice').style.display = 'block';
+function toggleCheck(el, max) {
+  var cb = el.querySelector('input[type="checkbox"]');
+  cb.checked = !cb.checked;
+  el.classList.toggle('selected', cb.checked);
+  if (max && cb.checked) {
+    var grp = el.parentElement;
+    var checks = grp.querySelectorAll('input[type="checkbox"]:checked');
+    if (checks.length > max) {
+      cb.checked = false;
+      el.classList.remove('selected');
+      showToast('最多选' + max + '项哦');
     }
-  })();
+  }
+}
+
+// 其他选项输入时自动选中
+document.querySelectorAll('.other-opt input[type="text"]').forEach(function(inp) {
+  inp.addEventListener('input', function() {
+    var wrap = inp.closest('.option');
+    var input = wrap.querySelector('input[type="radio"], input[type="checkbox"]');
+    if (inp.value.trim() !== '') {
+      if (input.type === 'radio') {
+        var radios = document.getElementsByName(input.name);
+        for (var i = 0; i < radios.length; i++) {
+          radios[i].checked = false;
+          radios[i].closest('.option').classList.remove('selected');
+        }
+        input.checked = true;
+        wrap.classList.add('selected');
+      } else {
+        input.checked = true;
+        wrap.classList.add('selected');
+      }
+    }
+  });
+});
+
+document.getElementById('surveyForm').addEventListener('submit', function(e) {
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = '提交中...';
+  // 允许表单默认提交（FormSubmit）
+});
 </script>
 </body>
 </html>
