@@ -644,6 +644,36 @@ function toggleCheck(el, max) {
   saveDraft();
 }
 
+// 「其他」选项限选校验：从同组普通选项的 onclick 提取限选数（如 toggleCheck(this,3)），超过则撤销
+function getGroupMax(opt) {
+  var q = opt.closest('.question');
+  if (!q) return 0;
+  var normal = q.querySelector('.option:not(.other-opt)');
+  if (!normal || !normal.getAttribute('onclick')) return 0;
+  var m = normal.getAttribute('onclick').match(/toggleCheck\(this,(\d+)\)/);
+  return m ? parseInt(m[1], 10) : 0;
+}
+function enforceGroupMax(cb) {
+  var opt = cb.closest('.option');
+  var q = opt ? opt.closest('.question') : null;
+  var max = getGroupMax(opt);
+  if (!max || !q) return;
+  var checked = q.querySelectorAll('input[type="checkbox"]:checked');
+  if (checked.length > max) {
+    cb.checked = false;
+    if (opt) opt.classList.remove('selected');
+    showToast('最多选' + max + '项哦');
+  }
+}
+
+// 直接点「其他」的勾选框时，同样受同组限选约束
+document.querySelectorAll('.other-opt input[type="checkbox"]').forEach(function(cb) {
+  cb.addEventListener('change', function() {
+    if (this.checked) enforceGroupMax(this);
+    saveDraft();
+  });
+});
+
 document.querySelectorAll('.other-opt input[type="text"]').forEach(function(inp) {
   inp.addEventListener('input', function() {
     var wrap = inp.closest('.option');
@@ -660,6 +690,7 @@ document.querySelectorAll('.other-opt input[type="text"]').forEach(function(inp)
       } else {
         input.checked = true;
         wrap.classList.add('selected');
+        enforceGroupMax(input);
       }
     }
   });
