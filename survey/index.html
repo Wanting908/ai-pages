@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AI赋能培训需求调研 · 硅基路</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Songti SC", "STSong", "Microsoft YaHei", serif;
+    background: #17100e;
+    min-height: 100vh;
+    color: #e9ded2;
+    padding: 0 0 48px;
+    line-height: 1.6;
+  }
+  .container { max-width: 640px; margin: 0 auto; }
+
+  /* 顶部：智慧酒庄 × AI 全息大屏 */
+  .header {
+    position: relative;
+    background:
+      linear-gradient(180deg, rgba(20,12,10,0.35) 0%, rgba(20,12,10,0.55) 55%, #17100e 100%),
+      url('images/wine-ai-hologram.jpg') center 30% / cover no-repeat;
+    padding: 52px 26px 44px;
+    text-align: center;
+    overflow: hidden;
+  }
+  /* 全息光屏装饰线 */
+  .header .hud {
+    position: absolute;
+    left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(127,212,193,0.55), transparent);
+    opacity: 0.7;
+  }
+  .header .hud.top { top: 14px; }
+  .header .hud.bottom { bottom: 18px; }
+  .header .hud.corner-tl, .header .hud.corner-tr {
+    width: 26px; height: 26px;
+    background: none;
+    border: 1px solid rgba(127,212,193,0.6);
+    opacity: 0.8;
+  }
+  .header .hud.corner-tl { left: 14px; top: 14px; border-right: none; border-bottom: none; }
+  .header .hud.corner-tr { right: 14px; top: 14px; border-left: none; border-bottom: none; }
+
+  .header .brand {
+    font-size: 12px;
+    color: #d9b98a;
+    letter-spacing: 7px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+  }
+  .header .divider {
+    width: 46px; height: 1px;
+    background: linear-gradient(90deg, transparent, #d9b98a, transparent);
+    margin: 0 auto 18px;
+    opacity: 0.9;
+  }
+  .header h1 {
+    font-size: 25px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 14px rgba(0,0,0,0.6);
+  }
+  .header .sub {
+    font-size: 14px;
+    color: #e8cfae;
+    letter-spacing: 1.5px;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+  }
+  /* 全息光晕 */
+  .header .glow {
+    position: absolute;
+    top: 30px; left: 50%;
+    transform: translateX(-50%);
+    width: 240px; height: 90px;
+    background: radial-gradient(ellipse, rgba(127,212,193,0.16) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* 介绍区 */
+  .intro {
+    background: linear-gradient(165deg, #241714 0%, #1d1210 100%);
+    border: 1px solid rgba(201,168,106,0.22);
+    margin: -14px 16px 0;
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+    font-size: 15px;
+    line-height: 1.85;
+    color: #cbb8a5;
+    position: relative;
+    z-index: 1;
+  }
+  .intro b { color: #e9c98f; font-weight: 600; }
+  .intro .accent {
+    display: block;
+    text-align: center;
+    color: #7fd4c1;
+    font-size: 12.5px;
+    letter-spacing: 1.5px;
+    margin-top: 10px;
+  }
+
+  /* 分区 */
+  .section {
+    background: linear-gradient(170deg, #231713 0%, #1b110d 100%);
+    border: 1px solid rgba(201,168,106,0.18);
+    margin: 16px 16px 0;
+    border-radius: 14px;
+    padding: 22px 20px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+    position: relative;
+  }
+  .section::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 20px;
+    width: 44px; height: 2px;
+    background: linear-gradient(90deg, #7fd4c1, transparent);
+    opacity: 0.7;
+  }
+  .section-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #e9c98f;
+    margin-bottom: 4px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px; height: 28px;
+    background: linear-gradient(145deg, #8a5a2b, #5a3420);
+    color: #f3e4c8;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    flex-shrink: 0;
+    font-style: normal;
+    box-shadow: 0 0 12px rgba(138,90,43,0.4);
+  }
+  .section-sub {
+    font-size: 13px;
+    color: #9a8268;
+    margin-bottom: 16px;
+    margin-left: 38px;
+    letter-spacing: 0.5px;
+  }
+  .question { margin-bottom: 22px; }
+  .question:last-child { margin-bottom: 0; }
+  .q-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #efe2d3;
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+  .q-label .req { color: #e07a5f; }
+  .q-label .hint {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 400;
+    color: #7fd4c1;
+    background: rgba(127,212,193,0.1);
+    border: 1px solid rgba(127,212,193,0.3);
+    padding: 2px 9px;
+    border-radius: 10px;
+    margin-left: 6px;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+  }
+
+  /* 选项：大点击区，暗金+全息选中态 */
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 14px;
+    margin-bottom: 10px;
+    background: rgba(38,24,18,0.7);
+    border: 1px solid rgba(150,120,90,0.28);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #d9c9b8;
+    min-height: 48px;
+  }
+  .option:last-child { margin-bottom: 0; }
+  .option.selected {
+    background: rgba(138,90,43,0.16);
+    border-color: #c9a86a;
+    box-shadow: inset 0 0 0 1px rgba(201,168,106,0.35), 0 0 14px rgba(201,168,106,0.12);
+  }
+  .option input {
+    margin-top: 3px;
+    accent-color: #7fd4c1;
+    flex-shrink: 0;
+    width: 18px; height: 18px;
+  }
+  .option.other-opt input[type="text"] {
+    flex: 1;
+    border: none;
+    background: transparent;
+    border-bottom: 1px dashed #8a6d4f;
+    font-size: 15px;
+    color: #e9ded2;
+    padding: 4px 4px;
+    outline: none;
+    min-width: 60px;
+  }
+  .option.other-opt input[type="text"]::placeholder { color: #7a6450; }
+
+  /* 填空 */
+  .fill {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid rgba(150,120,90,0.35);
+    border-radius: 12px;
+    font-size: 16px;
+    background: rgba(38,24,18,0.6);
+    color: #e9ded2;
+    outline: none;
+    transition: border-color 0.15s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .fill:focus { border-color: #c9a86a; }
+  .fill::placeholder { color: #7a6450; }
+  .textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 14px 16px;
+    border: 1px solid rgba(150,120,90,0.35);
+    border-radius: 12px;
+    font-size: 16px;
+    background: rgba(38,24,18,0.6);
+    color: #e9ded2;
+    outline: none;
+    resize: vertical;
+    font-family: inherit;
+    line-height: 1.7;
+  }
+  .textarea:focus { border-color: #c9a86a; }
+  .textarea::placeholder { color: #7a6450; }
+
+  /* 提交：暗金渐变 + 全息光晕 */
+  .submit-wrap {
+    margin: 22px 16px 0;
+    text-align: center;
+  }
+  .btn-submit {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(160deg, #c9a86a 0%, #a8843f 55%, #8a5a2b 100%);
+    color: #241711;
+    border: none;
+    border-radius: 14px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 6px 24px rgba(138,90,43,0.4);
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-submit:hover { transform: translateY(-1px); }
+  .btn-submit:active { transform: scale(0.98); }
+  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .tip {
+    text-align: center;
+    font-size: 12px;
+    color: #9a8268;
+    margin-top: 14px;
+    letter-spacing: 1.5px;
+  }
+
+  /* 完成页 */
+  .success {
+    display: none;
+    text-align: center;
+    padding: 60px 24px;
+  }
+  .success .icon {
+    width: 76px; height: 76px;
+    margin: 0 auto 22px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #c9a86a, #8a5a2b);
+    color: #241711;
+    font-size: 38px;
+    line-height: 76px;
+    box-shadow: 0 0 30px rgba(201,168,106,0.35);
+  }
+  .success h2 {
+    font-size: 20px;
+    color: #e9c98f;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+  }
+  .success p {
+    font-size: 15px;
+    color: #b39a82;
+    line-height: 1.9;
+  }
+
+  .toast {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%) scale(0.9);
+    background: rgba(10,7,5,0.92);
+    color: #e9ded2;
+    padding: 18px 30px;
+    border-radius: 12px;
+    font-size: 15px;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s;
+    z-index: 100;
+    max-width: 82%;
+    line-height: 1.7;
+    border: 1px solid rgba(201,168,106,0.3);
+  }
+  .toast.show { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="hud top"></div>
+    <div class="hud bottom"></div>
+    <div class="hud corner-tl"></div>
+    <div class="hud corner-tr"></div>
+    <div class="glow"></div>
+    <div class="brand">S I L I R I D E</div>
+    <div class="divider"></div>
+    <h1>AI 赋能培训调研</h1>
+    <div class="sub">宁夏贺兰山东麓产区 · 2026年9月</div>
+  </div>
+
+  <div class="intro">
+    尊敬的<b>庄主 · 管理者</b>：<br>
+    我们计划于 <b>2026年9月</b> 组织一场面向产区庄主及管理人员的 AI 实战培训。为让课程真正贴合您的经营实际，恳请您用 <b>2分钟</b> 填写此问卷。<br>
+    <span class="accent">◈ 结果仅用于课程设计，感谢您的信任 ◈</span>
+  </div>
+
+  <form id="surveyForm" action="https://formsubmit.co/wanting908@sina.com" method="POST">
+    <input type="hidden" name="_subject" value="AI赋能培训需求调研提交">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+
+    <!-- 一、基本信息 -->
+    <div class="section">
+      <div class="section-title"><span class="num">壹</span>基本信息</div>
+      <div class="section-sub">便于我们为您定制专属方案</div>
+
+      <div class="question">
+        <div class="q-label">1. 您的姓名 <span class="req">*</span></div>
+        <input type="text" name="Q1_姓名" class="fill" placeholder="请输入您的姓名" required>
+      </div>
+
+      <div class="question">
+        <div class="q-label">2. 您所在的酒庄/企业名称 <span class="req">*</span></div>
+        <input type="text" name="Q2_酒庄名称" class="fill" placeholder="请输入酒庄/企业名称" required>
+      </div>
+
+      <div class="question">
+        <div class="q-label">3. 您在企业中的角色 <span class="req">*</span></div>
+        <div class="option" onclick="selectRadio(this,'Q3_角色','庄主/创始人')"><input type="radio" name="Q3_角色" value="庄主/创始人" required> 庄主/创始人</div>
+        <div class="option" onclick="selectRadio(this,'Q3_角色','高管/管理层')"><input type="radio" name="Q3_角色" value="高管/管理层"> 高管/管理层</div>
+        <div class="option" onclick="selectRadio(this,'Q3_角色','市场/营销负责人')"><input type="radio" name="Q3_角色" value="市场/营销负责人"> 市场/营销负责人</div>
+        <div class="option" onclick="selectRadio(this,'Q3_角色','销售负责人')"><input type="radio" name="Q3_角色" value="销售负责人"> 销售负责人</div>
+        <div class="option other-opt" onclick="event.stopPropagation()"><input type="radio" name="Q3_角色" value="其他"> 其他 <input type="text" name="Q3_其他" placeholder="请说明"></div>
+      </div>
+    </div>
+
+    <!-- 二、AI认知摸底 -->
+    <div class="section">
+      <div class="section-title"><span class="num">贰</span>AI 认知摸底</div>
+      <div class="section-sub">了解您的起点，安排合适的课程</div>
+
+      <div class="question">
+        <div class="q-label">4. 您目前对 AI 工具的了解程度 <span class="req">*</span></div>
+        <div class="option" onclick="selectRadio(this,'Q4_了解程度','完全没接触过')"><input type="radio" name="Q4_了解程度" value="完全没接触过，不太知道能做什么" required> 完全没接触过，不太知道能做什么</div>
+        <div class="option" onclick="selectRadio(this,'Q4_了解程度','听过没用过')"><input type="radio" name="Q4_了解程度" value="听过一些，但没有实际用过"> 听过一些，但没有实际用过</div>
+        <div class="option" onclick="selectRadio(this,'Q4_了解程度','简单试用过')"><input type="radio" name="Q4_了解程度" value="简单试用过（如ChatGPT、文心一言、通义千问等）"> 简单试用过（如 ChatGPT、文心一言、通义千问等）</div>
+        <div class="option" onclick="selectRadio(this,'Q4_了解程度','工作中已使用')"><input type="radio" name="Q4_了解程度" value="已在工作中使用一些AI工具"> 已在工作中使用一些 AI 工具</div>
+      </div>
+
+      <div class="question">
+        <div class="q-label">5. 您或您的团队目前是否使用过以下工具？<span class="hint">可多选</span></div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q5_用过工具" value="AI对话工具"> AI 对话工具（ChatGPT/文心一言/通义千问/豆包等）</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q5_用过工具" value="AI生成图片/视频工具"> AI 生成图片/视频工具</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q5_用过工具" value="AI写作/文案工具"> AI 写作/文案工具</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q5_用过工具" value="低代码/无代码平台"> 低代码/无代码搭建平台</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q5_用过工具" value="都没用过"> 都没有使用过</div>
+      </div>
+    </div>
+
+    <!-- 三、痛点与需求 -->
+    <div class="section">
+      <div class="section-title"><span class="num">叁</span>痛点与需求</div>
+      <div class="section-sub">告诉我们最想解决什么</div>
+
+      <div class="question">
+        <div class="q-label">6. 您日常经营中最耗时或最头疼的工作环节是哪些？<span class="hint">最多选3项</span></div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q6_头疼环节" value="客户开发与维护"> 客户开发与维护</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q6_头疼环节" value="营销内容创作"> 营销内容创作（公众号/短视频/海报等）</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q6_头疼环节" value="销售渠道管理"> 销售渠道管理（经销商对接、订单跟踪）</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q6_头疼环节" value="品牌宣传与推广"> 品牌宣传与推广</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q6_头疼环节" value="数据分析"> 数据分析（销售数据、库存、市场趋势）</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q6_头疼环节" value="人事财务等内部管理"> 人事/财务等内部管理</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q6_头疼环节" value="产品包装设计"> 产品包装设计</div>
+        <div class="option other-opt" onclick="event.stopPropagation()"><input type="checkbox" name="Q6_头疼环节" value="其他"> 其他 <input type="text" name="Q6_其他" placeholder="请说明"></div>
+      </div>
+
+      <div class="question">
+        <div class="q-label">7. 您认为目前企业引入AI技术最大的障碍是 <span class="req">*</span></div>
+        <div class="option" onclick="selectRadio(this,'Q7_最大障碍','人手不够没精力')"><input type="radio" name="Q7_最大障碍" value="人手不够，一人多岗，没精力学习探索" required> 人手不够，一人多岗，没精力学习和探索AI工具</div>
+        <div class="option" onclick="selectRadio(this,'Q7_最大障碍','团队缺乏技能')"><input type="radio" name="Q7_最大障碍" value="团队缺乏AI技能，不知道怎么上手"> 团队缺乏AI技能，不知道怎么上手</div>
+        <div class="option" onclick="selectRadio(this,'Q7_最大障碍','不清楚哪些工具')"><input type="radio" name="Q7_最大障碍" value="不清楚哪些AI工具能解决自己的实际问题"> 不清楚哪些AI工具能解决自己的实际问题</div>
+        <div class="option" onclick="selectRadio(this,'Q7_最大障碍','效果不理想')"><input type="radio" name="Q7_最大障碍" value="试过一些AI工具但效果不理想"> 试过一些AI工具但效果不理想</div>
+        <div class="option other-opt" onclick="event.stopPropagation()"><input type="radio" name="Q7_最大障碍" value="其他"> 其他 <input type="text" name="Q7_其他" placeholder="请说明"></div>
+      </div>
+    </div>
+
+    <!-- 四、感兴趣的应用场景 -->
+    <div class="section">
+      <div class="section-title"><span class="num">肆</span>感兴趣的应用场景</div>
+      <div class="section-sub">选出您最想优先学习的</div>
+
+      <div class="question">
+        <div class="q-label">8. 如果AI能帮您解决以下问题，您最希望优先学习哪些？<span class="hint">最多选3项</span></div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q8_优先学习" value="客户管理AI助手"> 搭建客户管理AI助手（自动跟进、客户画像、提醒）</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q8_优先学习" value="自动生成营销内容"> 自动生成营销内容（文案、公众号文章、短视频脚本）</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q8_优先学习" value="产品展示HTML页面"> 制作产品展示HTML页面（酒款介绍、品牌展示页）</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q8_优先学习" value="数据分析与可视化"> 数据分析与可视化（销售报表、趋势分析）</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q8_优先学习" value="微信小程序"> 快速制作微信小程序（产品展示、预约、商城）</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q8_优先学习" value="AI辅助销售话术"> AI辅助销售话术与客户沟通</div>
+        <div class="option" onclick="toggleCheck(this,3)"><input type="checkbox" name="Q8_优先学习" value="AI生成宣传图视频"> AI生成产品宣传图片/视频</div>
+        <div class="option other-opt" onclick="event.stopPropagation()"><input type="checkbox" name="Q8_优先学习" value="其他"> 其他 <input type="text" name="Q8_其他" placeholder="请说明"></div>
+      </div>
+    </div>
+
+    <!-- 五、培训偏好 -->
+    <div class="section">
+      <div class="section-title"><span class="num">伍</span>培训偏好</div>
+      <div class="section-sub">让培训更贴合您的节奏</div>
+
+      <div class="question">
+        <div class="q-label">9. 您更倾向于哪种培训时间安排？ <span class="req">*</span></div>
+        <div class="option" onclick="selectRadio(this,'Q9_时间安排','工作日上午')"><input type="radio" name="Q9_时间安排" value="工作日上午（9:00-12:00）" required> 工作日上午（9:00-12:00）</div>
+        <div class="option" onclick="selectRadio(this,'Q9_时间安排','工作日下午')"><input type="radio" name="Q9_时间安排" value="工作日下午（14:00-17:00）"> 工作日下午（14:00-17:00）</div>
+        <div class="option" onclick="selectRadio(this,'Q9_时间安排','周末')"><input type="radio" name="Q9_时间安排" value="周末（全天或半天）"> 周末（全天或半天）</div>
+        <div class="option" onclick="selectRadio(this,'Q9_时间安排','灵活安排')"><input type="radio" name="Q9_时间安排" value="灵活安排，能参加就行"> 灵活安排，能参加就行</div>
+      </div>
+
+      <div class="question">
+        <div class="q-label">10. 您更倾向于哪种培训时长？ <span class="req">*</span></div>
+        <div class="option" onclick="selectRadio(this,'Q10_培训时长','半天集中')"><input type="radio" name="Q10_培训时长" value="半天集中培训（3-4小时）" required> 半天集中培训（3-4小时，一次讲完）</div>
+        <div class="option" onclick="selectRadio(this,'Q10_培训时长','全天集中')"><input type="radio" name="Q10_培训时长" value="全天集中培训（6-7小时）"> 全天集中培训（6-7小时，一天学透）</div>
+        <div class="option" onclick="selectRadio(this,'Q10_培训时长','分次培训')"><input type="radio" name="Q10_培训时长" value="分次培训（每次2-3小时，分2-3次）"> 分次培训（每次2-3小时，分2-3次，便于消化和实操）</div>
+      </div>
+
+      <div class="question">
+        <div class="q-label">11. 您更希望培训以什么形式为主？ <span class="req">*</span></div>
+        <div class="option" onclick="selectRadio(this,'Q11_培训形式','线下集中授课')"><input type="radio" name="Q11_培训形式" value="线下集中授课（讲师主讲+演示）" required> 线下集中授课（讲师主讲+演示）</div>
+        <div class="option" onclick="selectRadio(this,'Q11_培训形式','线下工作坊')"><input type="radio" name="Q11_培训形式" value="线下工作坊（带着实际业务边学边练）"> 线下工作坊（带着自己的实际业务边学边练）</div>
+        <div class="option" onclick="selectRadio(this,'Q11_培训形式','线上直播')"><input type="radio" name="Q11_培训形式" value="线上直播（可回看，时间灵活）"> 线上直播（可回看，时间灵活）</div>
+        <div class="option" onclick="selectRadio(this,'Q11_培训形式','录播视频')"><input type="radio" name="Q11_培训形式" value="录播视频（随时学习，进度自由）"> 录播视频（随时学习，进度自由）</div>
+      </div>
+
+      <div class="question">
+        <div class="q-label">12. 培训结束后，您希望获得哪些持续支持？<span class="hint">可多选</span></div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_持续支持" value="产区AI学习交流群"> 建立产区AI学习交流群</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_持续支持" value="定期线上答疑"> 定期线上答疑或进阶课程</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_持续支持" value="操作手册教程文档"> 提供操作手册/教程文档</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_持续支持" value="一对一辅导"> 一对一辅导搭建企业专属AI工具</div>
+        <div class="option" onclick="toggleCheck(this)"><input type="checkbox" name="Q12_持续支持" value="暂不需要"> 暂不需要</div>
+      </div>
+    </div>
+
+    <!-- 六、参与意向 -->
+    <div class="section">
+      <div class="section-title"><span class="num">陆</span>参与意向</div>
+      <div class="section-sub">期待与您九月相见</div>
+
+      <div class="question">
+        <div class="q-label">13. 如果2026年9月举办此培训，您的参与意愿 <span class="req">*</span></div>
+        <div class="option" onclick="selectRadio(this,'Q13_参与意愿','确定参加')"><input type="radio" name="Q13_参与意愿" value="确定参加" required> 确定参加</div>
+        <div class="option" onclick="selectRadio(this,'Q13_参与意愿','感兴趣尽量参加')"><input type="radio" name="Q13_参与意愿" value="感兴趣，时间确定后尽量参加"> 感兴趣，时间确定后尽量参加</div>
+        <div class="option" onclick="selectRadio(this,'Q13_参与意愿','暂不确定')"><input type="radio" name="Q13_参与意愿" value="暂不确定，但希望了解后续信息"> 暂不确定，但希望了解后续信息</div>
+        <div class="option" onclick="selectRadio(this,'Q13_参与意愿','暂不考虑')"><input type="radio" name="Q13_参与意愿" value="暂不考虑"> 暂不考虑</div>
+      </div>
+
+      <div class="question">
+        <div class="q-label">14. 您对这场培训还有什么期望或建议？<span class="hint">选填</span></div>
+        <textarea name="Q14_期望建议" class="textarea" placeholder="欢迎写下您的想法，我们认真倾听..."></textarea>
+      </div>
+    </div>
+
+    <div class="submit-wrap">
+      <button type="submit" class="btn-submit" id="submitBtn">提 交 问 卷</button>
+    </div>
+    <div class="tip">◈ 结果仅用于课程设计 · 感谢您的参与 ◈</div>
+  </form>
+
+  <div class="success" id="successPage">
+    <div class="icon">✓</div>
+    <h2>提交成功</h2>
+    <p>感谢您的信任与支持<br>我们会认真对待每一份回答</p>
+  </div>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 2500);
+}
+
+function selectRadio(el, name, val) {
+  var radios = document.getElementsByName(name);
+  for (var i = 0; i < radios.length; i++) {
+    radios[i].checked = false;
+    if (radios[i].closest('.option')) radios[i].closest('.option').classList.remove('selected');
+  }
+  var radio = el.querySelector('input[type="radio"]');
+  radio.checked = true;
+  el.classList.add('selected');
+}
+
+function toggleCheck(el, max) {
+  var cb = el.querySelector('input[type="checkbox"]');
+  cb.checked = !cb.checked;
+  el.classList.toggle('selected', cb.checked);
+  if (max && cb.checked) {
+    var grp = el.parentElement;
+    var checks = grp.querySelectorAll('input[type="checkbox"]:checked');
+    if (checks.length > max) {
+      cb.checked = false;
+      el.classList.remove('selected');
+      showToast('最多选' + max + '项哦');
+    }
+  }
+}
+
+document.querySelectorAll('.other-opt input[type="text"]').forEach(function(inp) {
+  inp.addEventListener('input', function() {
+    var wrap = inp.closest('.option');
+    var input = wrap.querySelector('input[type="radio"], input[type="checkbox"]');
+    if (inp.value.trim() !== '') {
+      if (input.type === 'radio') {
+        var radios = document.getElementsByName(input.name);
+        for (var i = 0; i < radios.length; i++) {
+          radios[i].checked = false;
+          radios[i].closest('.option').classList.remove('selected');
+        }
+        input.checked = true;
+        wrap.classList.add('selected');
+      } else {
+        input.checked = true;
+        wrap.classList.add('selected');
+      }
+    }
+  });
+});
+
+document.getElementById('surveyForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var btn = document.getElementById('submitBtn');
+  var form = this;
+  btn.disabled = true;
+  btn.textContent = '提交中...';
+  var formData = new FormData(form);
+  formData.append('_next', '');
+  fetch(form.action, { method: 'POST', body: formData, mode: 'no-cors' })
+    .then(function() {
+      form.style.display = 'none';
+      document.getElementById('successPage').style.display = 'block';
+      window.scrollTo(0, 0);
+    })
+    .catch(function() {
+      btn.disabled = false;
+      btn.textContent = '提 交 问 卷';
+      showToast('提交失败，请检查网络后重试');
+    });
+});
+</script>
+</body>
+</html>
