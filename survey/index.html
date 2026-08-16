@@ -627,4 +627,9 @@ document.getElementById('surveyForm').addEventListener('submit', function(e) {
     .catch(function() {
       btn.disabled = false;
       btn.textContent = '提 交 问 卷';
-      showToast('提交失败�
+      showToast('提交失败，请检查网络后重试');
+    });
+});
+</script>
+</body>
+</html>
