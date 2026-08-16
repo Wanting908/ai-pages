@@ -210,6 +210,13 @@
     flex-shrink: 0;
     width: 18px; height: 18px;
   }
+  /* 修复：方块/圆圈不接收原生点击（避免原生切换 + JS 反转双重抵消），
+     点击穿透到选项行，统一由 div 的 selectRadio/toggleCheck 处理，
+     保证点方块/圆圈和点文字行为一致。其他选项保留原生交互（靠输入文字选中）。 */
+  .option:not(.other-opt) input[type="radio"],
+  .option:not(.other-opt) input[type="checkbox"] {
+    pointer-events: none;
+  }
   .option.other-opt input[type="text"] {
     flex: 1;
     border: none;
